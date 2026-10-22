@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data xmlns="http://www.woltlab.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.woltlab.com http://www.woltlab.com/XSD/6.0/box.xsd">
+	<import>
+		<box identifier="com.tinsever.forum.LatestPosts">
+			<name language="de">Neueste Beiträge im Forum</name>
+			<name language="en">Latest Forum Posts</name>
+			<boxType>system</boxType>
+			<objectType>com.tinsever.forum.threadList</objectType>
+			<position>sidebarRight</position>
+			<showHeader>1</showHeader>
+			<visibleEverywhere>0</visibleEverywhere>
+			<visibilityExceptions>
+				<page>com.tinsever.forum.BoardList</page>
+			</visibilityExceptions>
+			<sortField>lastPostTime</sortField>
+			<sortOrder>DESC</sortOrder>
+			<limit>5</limit>
+			<content language="de">
+				<title>Letzte Beiträge</title>
+			</content>
+			<content language="en">
+				<title>Latest Posts</title>
+			</content>
+		</box>
+		<box identifier="com.tinsever.forum.BoardList">
+			<name language="de">Forenliste</name>
+			<name language="en">Board List</name>
+			<boxType>system</boxType>
+			<objectType>com.tinsever.forum.boardList</objectType>
+			<position>sidebarLeft</position>
+			<showHeader>1</showHeader>
+			<visibleEverywhere>0</visibleEverywhere>
+			<sortOrder>ASC</sortOrder>
+			<content language="de">
+				<title>Foren</title>
+			</content>
+			<content language="en">
+				<title>Boards</title>
+			</content>
+		</box>
+		<box identifier="com.tinsever.forum.Statistics">
+			<name language="de">Forenstatistik</name>
+			<name language="en">Forum Statistics</name>
+			<boxType>system</boxType>
+			<objectType>com.tinsever.forum.statistics</objectType>
+			<position>sidebarRight</position>
+			<showHeader>1</showHeader>
+			<visibleEverywhere>0</visibleEverywhere>
+			<sortOrder>ASC</sortOrder>
+			<content language="de">
+				<title>Statistik</title>
+			</content>
+			<content language="en">
+				<title>Statistics</title>
+			</content>
+		</box>
+		<box identifier="com.tinsever.forum.HotThreads">
+			<name language="de">Heiße Themen im Forum</name>
+			<name language="en">Hot Forum Threads</name>
+			<boxType>system</boxType>
+			<objectType>com.tinsever.forum.hotThreadList</objectType>
+			<position>sidebarRight</position>
+			<showHeader>1</showHeader>
+			<visibleEverywhere>0</visibleEverywhere>
+			<visibilityExceptions>
+				<page>com.tinsever.forum.BoardList</page>
+			</visibilityExceptions>
+			<limit>5</limit>
+			<content language="de">
+				<title>Heiße Themen</title>
+			</content>
+			<content language="en">
+				<title>Hot Threads</title>
+			</content>
+		</box>
+	</import>
+</data>

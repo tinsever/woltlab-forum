@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data xmlns="http://www.woltlab.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.woltlab.com http://www.woltlab.com/XSD/6.0/page.xsd">
+	<import>
+		<page identifier="com.tinsever.forum.BoardList">
+			<pageType>system</pageType>
+			<controller>forum\page\BoardListPage</controller>
+			<name language="de">Forenübersicht</name>
+			<name language="en">Board List</name>
+			<handler>forum\system\page\handler\BoardListPageHandler</handler>
+			<allowSpidersToIndex>1</allowSpidersToIndex>
+			<content language="en">
+				<title>Forum</title>
+			</content>
+			<content language="de">
+				<title>Forum</title>
+			</content>
+		</page>
+		<page identifier="com.tinsever.forum.Board">
+			<pageType>system</pageType>
+			<controller>forum\page\BoardPage</controller>
+			<name language="de">Forum</name>
+			<name language="en">Board</name>
+			<handler>forum\system\page\handler\BoardPageHandler</handler>
+			<requireObjectID>1</requireObjectID>
+			<parent>com.tinsever.forum.BoardList</parent>
+			<allowSpidersToIndex>1</allowSpidersToIndex>
+		</page>
+		<page identifier="com.tinsever.forum.Thread">
+			<pageType>system</pageType>
+			<controller>forum\page\ThreadPage</controller>
+			<name language="de">Thema</name>
+			<name language="en">Thread</name>
+			<handler>forum\system\page\handler\ThreadPageHandler</handler>
+			<requireObjectID>1</requireObjectID>
+			<parent>com.tinsever.forum.BoardList</parent>
+			<allowSpidersToIndex>1</allowSpidersToIndex>
+		</page>
+		<page identifier="com.tinsever.forum.ThreadAdd">
+			<pageType>system</pageType>
+			<controller>forum\form\ThreadAddForm</controller>
+			<name language="de">Neues Thema</name>
+			<name language="en">New Thread</name>
+			<parent>com.tinsever.forum.BoardList</parent>
+			<excludeFromLandingPage>1</excludeFromLandingPage>
+			<content language="en">
+				<title>New Thread</title>
+			</content>
+			<content language="de">
+				<title>Neues Thema erstellen</title>
+			</content>
+		</page>
+		<page identifier="com.tinsever.forum.PostEdit">
+			<pageType>system</pageType>
+			<controller>forum\form\PostEditForm</controller>
+			<name language="de">Beitrag bearbeiten</name>
+			<name language="en">Edit Post</name>
+			<parent>com.tinsever.forum.BoardList</parent>
+			<requireObjectID>1</requireObjectID>
+			<content language="en">
+				<title>Edit Post</title>
+			</content>
+			<content language="de">
+				<title>Beitrag bearbeiten</title>
+			</content>
+		</page>
+		<page identifier="com.tinsever.forum.ThreadLog">
+			<pageType>system</pageType>
+			<controller>forum\page\ThreadLogPage</controller>
+			<name language="de">Themen-Protokoll</name>
+			<name language="en">Thread Log</name>
+			<parent>com.tinsever.forum.BoardList</parent>
+			<requireObjectID>1</requireObjectID>
+			<content language="en">
+				<title>Thread Log</title>
+			</content>
+			<content language="de">
+				<title>Protokoll</title>
+			</content>
+		</page>
+		<page identifier="com.tinsever.forum.UnreadThreadList">
+			<pageType>system</pageType>
+			<controller>forum\page\UnreadThreadListPage</controller>
+			<name language="de">Ungelesene Themen</name>
+			<name language="en">Unread Threads</name>
+			<handler>forum\system\page\handler\UnreadThreadListPageHandler</handler>
+			<parent>com.tinsever.forum.BoardList</parent>
+			<excludeFromLandingPage>1</excludeFromLandingPage>
+			<content language="en">
+				<title>Unread Threads</title>
+			</content>
+			<content language="de">
+				<title>Ungelesene Themen</title>
+			</content>
+		</page>
+		<page identifier="com.tinsever.forum.UnansweredThreadList">
+			<pageType>system</pageType>
+			<controller>forum\page\UnansweredThreadListPage</controller>
+			<name language="de">Unbeantwortete Themen</name>
+			<name language="en">Unanswered Threads</name>
+			<parent>com.tinsever.forum.BoardList</parent>
+			<content language="en">
+				<title>Unanswered Threads</title>
+			</content>
+			<content language="de">
+				<title>Unbeantwortete Themen</title>
+			</content>
+		</page>
+		<page identifier="com.tinsever.forum.UndoneThreadList">
+			<pageType>system</pageType>
+			<controller>forum\page\UndoneThreadListPage</controller>
+			<name language="de">Unerledigte Themen</name>
+			<name language="en">Unsolved Threads</name>
+			<parent>com.tinsever.forum.BoardList</parent>
+			<content language="en">
+				<title>Unsolved Threads</title>
+			</content>
+			<content language="de">
+				<title>Unerledigte Themen</title>
+			</content>
+		</page>
+		<page identifier="com.tinsever.forum.WatchedThreadList">
+			<pageType>system</pageType>
+			<controller>forum\page\WatchedThreadListPage</controller>
+			<name language="de">Abonnierte Themen</name>
+			<name language="en">Watched Threads</name>
+			<handler>forum\system\page\handler\LoggedInThreadListPageHandler</handler>
+			<parent>com.tinsever.forum.BoardList</parent>
+			<excludeFromLandingPage>1</excludeFromLandingPage>
+			<content language="en">
+				<title>Watched Threads</title>
+			</content>
+			<content language="de">
+				<title>Abonnierte Themen</title>
+			</content>
+		</page>
+		<page identifier="com.tinsever.forum.ParticipatedThreadList">
+			<pageType>system</pageType>
+			<controller>forum\page\ParticipatedThreadListPage</controller>
+			<name language="de">Themen mit eigener Beteiligung</name>
+			<name language="en">Threads I Participated In</name>
+			<handler>forum\system\page\handler\LoggedInThreadListPageHandler</handler>
+			<parent>com.tinsever.forum.BoardList</parent>
+			<excludeFromLandingPage>1</excludeFromLandingPage>
+			<content language="en">
+				<title>Threads I Participated In</title>
+			</content>
+			<content language="de">
+				<title>Themen mit eigener Beteiligung</title>
+			</content>
+		</page>
+		<page identifier="com.tinsever.forum.LatestThreadList">
+			<pageType>system</pageType>
+			<controller>forum\page\LatestThreadListPage</controller>
+			<name language="de">Neueste Themen</name>
+			<name language="en">Latest Threads</name>
+			<parent>com.tinsever.forum.BoardList</parent>
+			<content language="en">
+				<title>Latest Threads</title>
+			</content>
+			<content language="de">
+				<title>Neueste Themen</title>
+			</content>
+		</page>
+		<page identifier="com.tinsever.forum.UserThreadList">
+			<pageType>system</pageType>
+			<controller>forum\page\UserThreadListPage</controller>
+			<name language="de">Themen eines Benutzers</name>
+			<name language="en">Threads by User</name>
+			<parent>com.tinsever.forum.BoardList</parent>
+			<requireObjectID>1</requireObjectID>
+			<excludeFromLandingPage>1</excludeFromLandingPage>
+		</page>
+		<page identifier="com.tinsever.forum.UserPostList">
+			<pageType>system</pageType>
+			<controller>forum\page\UserPostListPage</controller>
+			<name language="de">Beiträge eines Benutzers</name>
+			<name language="en">Posts by User</name>
+			<parent>com.tinsever.forum.BoardList</parent>
+			<requireObjectID>1</requireObjectID>
+			<excludeFromLandingPage>1</excludeFromLandingPage>
+		</page>
+		<page identifier="com.tinsever.forum.AccountSwitcher">
+			<pageType>system</pageType>
+			<controller>forum\page\AccountSwitcherPage</controller>
+			<name language="de">Verknüpfte Accounts</name>
+			<name language="en">Linked Accounts</name>
+			<hasFixedParent>1</hasFixedParent>
+			<parent>com.woltlab.wcf.AccountManagement</parent>
+			<excludeFromLandingPage>1</excludeFromLandingPage>
+			<options>module_forum_account_switcher</options>
+			<content language="en">
+				<title>Linked Accounts</title>
+			</content>
+			<content language="de">
+				<title>Verknüpfte Accounts</title>
+			</content>
+		</page>
+		<page identifier="com.tinsever.forum.AccountSwitcherMultifactor">
+			<pageType>system</pageType>
+			<controller>forum\form\AccountSwitcherMultifactorForm</controller>
+			<name language="de">Account-Wechsel bestätigen</name>
+			<name language="en">Confirm Account Switch</name>
+			<hasFixedParent>1</hasFixedParent>
+			<parent>com.tinsever.forum.AccountSwitcher</parent>
+			<excludeFromLandingPage>1</excludeFromLandingPage>
+			<options>module_forum_account_switcher</options>
+		</page>
+	</import>
+
+	<delete>
+		<page identifier="com.tinsever.forum.PostAdd" />
+	</delete>
+</data>

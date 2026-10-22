@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data xmlns="http://www.woltlab.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.woltlab.com http://www.woltlab.com/XSD/6.0/cronjob.xsd">
+	<import>
+		<cronjob name="com.tinsever.forum.cleanUp">
+			<classname>forum\system\cronjob\ForumCleanUpCronjob</classname>
+			<description>Removes expired links to moved threads and empties the forum trash</description>
+			<description language="de">Entfernt abgelaufene Links auf verschobene Themen und leert den Papierkorb des Forums</description>
+			<expression>15 * * * *</expression>
+			<canbedisabled>1</canbedisabled>
+		</cronjob>
+		<cronjob name="com.tinsever.forum.rssFeedReader">
+			<classname>forum\system\cronjob\RssFeedReaderCronjob</classname>
+			<description>Imports new entries of RSS feeds as threads</description>
+			<description language="de">Importiert neue Einträge von RSS-Feeds als Themen</description>
+			<expression>*/10 * * * *</expression>
+			<canbedisabled>1</canbedisabled>
+		</cronjob>
+	</import>
+</data>

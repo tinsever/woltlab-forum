@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data xmlns="http://www.woltlab.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.woltlab.com http://www.woltlab.com/XSD/6.0/userNotificationEvent.xsd">
+	<import>
+		<event>
+			<name>post</name>
+			<objecttype>com.tinsever.forum.post.notification</objecttype>
+			<classname>forum\system\user\notification\event\PostUserNotificationEvent</classname>
+			<preset>1</preset>
+		</event>
+		<event>
+			<name>thread</name>
+			<objecttype>com.tinsever.forum.post.notification</objecttype>
+			<classname>forum\system\user\notification\event\ThreadUserNotificationEvent</classname>
+			<preset>1</preset>
+		</event>
+		<event>
+			<name>mention</name>
+			<objecttype>com.tinsever.forum.post.notification</objecttype>
+			<classname>forum\system\user\notification\event\PostMentionUserNotificationEvent</classname>
+			<preset>1</preset>
+		</event>
+		<event>
+			<name>quote</name>
+			<objecttype>com.tinsever.forum.post.notification</objecttype>
+			<classname>forum\system\user\notification\event\PostQuoteUserNotificationEvent</classname>
+			<preset>1</preset>
+		</event>
+		<event>
+			<name>like</name>
+			<objecttype>com.tinsever.forum.likeablePost.notification</objecttype>
+			<classname>forum\system\user\notification\event\PostLikeUserNotificationEvent</classname>
+			<preset>1</preset>
+			<options>module_like</options>
+		</event>
+	</import>
+</data>

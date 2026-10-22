@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data xmlns="http://www.woltlab.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.woltlab.com http://www.woltlab.com/XSD/6.0/aclOption.xsd">
+	<import>
+		<categories>
+			<category name="mod.post">
+				<objecttype>com.tinsever.forum.board</objecttype>
+			</category>
+			<category name="mod.thread">
+				<objecttype>com.tinsever.forum.board</objecttype>
+			</category>
+			<category name="user.attachment">
+				<objecttype>com.tinsever.forum.board</objecttype>
+			</category>
+			<category name="user.board">
+				<objecttype>com.tinsever.forum.board</objecttype>
+			</category>
+			<category name="user.post">
+				<objecttype>com.tinsever.forum.board</objecttype>
+			</category>
+			<category name="user.thread">
+				<objecttype>com.tinsever.forum.board</objecttype>
+			</category>
+		</categories>
+		<options>
+			<option name="canViewBoard">
+				<categoryname>user.board</categoryname>
+				<objecttype>com.tinsever.forum.board</objecttype>
+			</option>
+			<option name="canEnterBoard">
+				<categoryname>user.board</categoryname>
+				<objecttype>com.tinsever.forum.board</objecttype>
+			</option>
+			<option name="canReadThread">
+				<categoryname>user.board</categoryname>
+				<objecttype>com.tinsever.forum.board</objecttype>
+			</option>
+			<option name="canStartThread">
+				<categoryname>user.thread</categoryname>
+				<objecttype>com.tinsever.forum.board</objecttype>
+			</option>
+			<option name="canStartThreadWithoutModeration">
+				<categoryname>user.thread</categoryname>
+				<objecttype>com.tinsever.forum.board</objecttype>
+			</option>
+			<option name="canReplyThread">
+				<categoryname>user.thread</categoryname>
+				<objecttype>com.tinsever.forum.board</objecttype>
+			</option>
+			<option name="canReplyOwnThread">
+				<categoryname>user.thread</categoryname>
+				<objecttype>com.tinsever.forum.board</objecttype>
+			</option>
+			<option name="canReplyThreadWithoutModeration">
+				<categoryname>user.thread</categoryname>
+				<objecttype>com.tinsever.forum.board</objecttype>
+			</option>
+			<option name="canSetTags">
+				<categoryname>user.thread</categoryname>
+				<objecttype>com.tinsever.forum.board</objecttype>
+			</option>
+			<option name="canMarkOwnThreadAsDone">
+				<categoryname>user.thread</categoryname>
+				<objecttype>com.tinsever.forum.board</objecttype>
+			</option>
+			<option name="canMarkOwnBestAnswer">
+				<categoryname>user.thread</categoryname>
+				<objecttype>com.tinsever.forum.board</objecttype>
+			</option>
+			<option name="canEditOwnPost">
+				<categoryname>user.post</categoryname>
+				<objecttype>com.tinsever.forum.board</objecttype>
+			</option>
+			<option name="canDeleteOwnPost">
+				<categoryname>user.post</categoryname>
+				<objecttype>com.tinsever.forum.board</objecttype>
+			</option>
+			<option name="canStartPoll">
+				<categoryname>user.post</categoryname>
+				<objecttype>com.tinsever.forum.board</objecttype>
+			</option>
+			<option name="canVotePoll">
+				<categoryname>user.post</categoryname>
+				<objecttype>com.tinsever.forum.board</objecttype>
+			</option>
+			<option name="canUploadAttachment">
+				<categoryname>user.attachment</categoryname>
+				<objecttype>com.tinsever.forum.board</objecttype>
+			</option>
+			<option name="canDownloadAttachment">
+				<categoryname>user.attachment</categoryname>
+				<objecttype>com.tinsever.forum.board</objecttype>
+			</option>
+			<option name="canViewAttachmentPreview">
+				<categoryname>user.attachment</categoryname>
+				<objecttype>com.tinsever.forum.board</objecttype>
+			</option>
+			<option name="canEditThread">
+				<categoryname>mod.thread</categoryname>
+				<objecttype>com.tinsever.forum.board</objecttype>
+			</option>
+			<option name="canCloseThread">
+				<categoryname>mod.thread</categoryname>
+				<objecttype>com.tinsever.forum.board</objecttype>
+			</option>
+			<option name="canPinThread">
+				<categoryname>mod.thread</categoryname>
+				<objecttype>com.tinsever.forum.board</objecttype>
+			</option>
+			<option name="canStartAnnouncement">
+				<categoryname>mod.thread</categoryname>
+				<objecttype>com.tinsever.forum.board</objecttype>
+			</option>
+			<option name="canMoveThread">
+				<categoryname>mod.thread</categoryname>
+				<objecttype>com.tinsever.forum.board</objecttype>
+			</option>
+			<option name="canMergeThread">
+				<categoryname>mod.thread</categoryname>
+				<objecttype>com.tinsever.forum.board</objecttype>
+			</option>
+			<option name="canMarkAsDoneThread">
+				<categoryname>mod.thread</categoryname>
+				<objecttype>com.tinsever.forum.board</objecttype>
+			</option>
+			<option name="canMarkBestAnswer">
+				<categoryname>mod.thread</categoryname>
+				<objecttype>com.tinsever.forum.board</objecttype>
+			</option>
+			<option name="canEnableThread">
+				<categoryname>mod.thread</categoryname>
+				<objecttype>com.tinsever.forum.board</objecttype>
+			</option>
+			<option name="canDeleteThread">
+				<categoryname>mod.thread</categoryname>
+				<objecttype>com.tinsever.forum.board</objecttype>
+			</option>
+			<option name="canReadDeletedThread">
+				<categoryname>mod.thread</categoryname>
+				<objecttype>com.tinsever.forum.board</objecttype>
+			</option>
+			<option name="canRestoreThread">
+				<categoryname>mod.thread</categoryname>
+				<objecttype>com.tinsever.forum.board</objecttype>
+			</option>
+			<option name="canDeleteThreadCompletely">
+				<categoryname>mod.thread</categoryname>
+				<objecttype>com.tinsever.forum.board</objecttype>
+			</option>
+			<option name="canReadPrivateThread">
+				<categoryname>mod.thread</categoryname>
+				<objecttype>com.tinsever.forum.board</objecttype>
+			</option>
+			<option name="canReplyClosedThread">
+				<categoryname>mod.thread</categoryname>
+				<objecttype>com.tinsever.forum.board</objecttype>
+			</option>
+			<option name="canEditPost">
+				<categoryname>mod.post</categoryname>
+				<objecttype>com.tinsever.forum.board</objecttype>
+			</option>
+			<option name="canClosePost">
+				<categoryname>mod.post</categoryname>
+				<objecttype>com.tinsever.forum.board</objecttype>
+			</option>
+			<option name="canMovePost">
+				<categoryname>mod.post</categoryname>
+				<objecttype>com.tinsever.forum.board</objecttype>
+			</option>
+			<option name="canMergePost">
+				<categoryname>mod.post</categoryname>
+				<objecttype>com.tinsever.forum.board</objecttype>
+			</option>
+			<option name="canEnablePost">
+				<categoryname>mod.post</categoryname>
+				<objecttype>com.tinsever.forum.board</objecttype>
+			</option>
+			<option name="canDeletePost">
+				<categoryname>mod.post</categoryname>
+				<objecttype>com.tinsever.forum.board</objecttype>
+			</option>
+			<option name="canReadDeletedPost">
+				<categoryname>mod.post</categoryname>
+				<objecttype>com.tinsever.forum.board</objecttype>
+			</option>
+			<option name="canRestorePost">
+				<categoryname>mod.post</categoryname>
+				<objecttype>com.tinsever.forum.board</objecttype>
+			</option>
+			<option name="canDeletePostCompletely">
+				<categoryname>mod.post</categoryname>
+				<objecttype>com.tinsever.forum.board</objecttype>
+			</option>
+		</options>
+	</import>
+</data>

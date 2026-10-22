@@ -1,0 +1,413 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data xmlns="http://www.woltlab.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.woltlab.com http://www.woltlab.com/XSD/6.0/userGroupOption.xsd">
+	<import>
+		<categories>
+			<category name="user.forum">
+				<parent>user</parent>
+			</category>
+			<category name="user.forum.board">
+				<parent>user.forum</parent>
+			</category>
+			<category name="user.forum.thread">
+				<parent>user.forum</parent>
+			</category>
+			<category name="user.forum.post">
+				<parent>user.forum</parent>
+			</category>
+			<category name="user.forum.attachment">
+				<parent>user.forum</parent>
+			</category>
+			<category name="mod.forum">
+				<parent>mod</parent>
+			</category>
+			<category name="mod.forum.thread">
+				<parent>mod.forum</parent>
+			</category>
+			<category name="mod.forum.post">
+				<parent>mod.forum</parent>
+			</category>
+			<category name="admin.forum">
+				<parent>admin</parent>
+			</category>
+		</categories>
+		<options>
+			<option name="user.forum.canViewBoard">
+				<categoryname>user.forum.board</categoryname>
+				<optiontype>boolean</optiontype>
+				<defaultvalue>1</defaultvalue>
+			</option>
+			<option name="user.forum.canEnterBoard">
+				<categoryname>user.forum.board</categoryname>
+				<optiontype>boolean</optiontype>
+				<defaultvalue>1</defaultvalue>
+			</option>
+			<option name="user.forum.canReadThread">
+				<categoryname>user.forum.board</categoryname>
+				<optiontype>boolean</optiontype>
+				<defaultvalue>1</defaultvalue>
+			</option>
+			<option name="user.forum.canStartThread">
+				<categoryname>user.forum.thread</categoryname>
+				<optiontype>boolean</optiontype>
+				<defaultvalue>0</defaultvalue>
+				<userdefaultvalue>1</userdefaultvalue>
+			</option>
+			<option name="user.forum.canStartThreadWithoutModeration">
+				<categoryname>user.forum.thread</categoryname>
+				<optiontype>boolean</optiontype>
+				<defaultvalue>0</defaultvalue>
+				<userdefaultvalue>1</userdefaultvalue>
+			</option>
+			<option name="user.forum.canReplyThread">
+				<categoryname>user.forum.thread</categoryname>
+				<optiontype>boolean</optiontype>
+				<defaultvalue>0</defaultvalue>
+				<userdefaultvalue>1</userdefaultvalue>
+			</option>
+			<option name="user.forum.canReplyOwnThread">
+				<categoryname>user.forum.thread</categoryname>
+				<optiontype>boolean</optiontype>
+				<defaultvalue>0</defaultvalue>
+				<userdefaultvalue>1</userdefaultvalue>
+			</option>
+			<option name="user.forum.canReplyThreadWithoutModeration">
+				<categoryname>user.forum.thread</categoryname>
+				<optiontype>boolean</optiontype>
+				<defaultvalue>0</defaultvalue>
+				<userdefaultvalue>1</userdefaultvalue>
+			</option>
+			<option name="user.forum.canSetTags">
+				<categoryname>user.forum.thread</categoryname>
+				<optiontype>boolean</optiontype>
+				<defaultvalue>0</defaultvalue>
+				<userdefaultvalue>1</userdefaultvalue>
+			</option>
+			<option name="user.forum.canMarkOwnThreadAsDone">
+				<categoryname>user.forum.thread</categoryname>
+				<optiontype>boolean</optiontype>
+				<defaultvalue>0</defaultvalue>
+				<userdefaultvalue>1</userdefaultvalue>
+			</option>
+			<option name="user.forum.canMarkOwnBestAnswer">
+				<categoryname>user.forum.thread</categoryname>
+				<optiontype>boolean</optiontype>
+				<defaultvalue>0</defaultvalue>
+				<userdefaultvalue>1</userdefaultvalue>
+			</option>
+			<option name="user.forum.canEditOwnPost">
+				<categoryname>user.forum.post</categoryname>
+				<optiontype>boolean</optiontype>
+				<defaultvalue>0</defaultvalue>
+				<userdefaultvalue>1</userdefaultvalue>
+			</option>
+			<option name="user.forum.canDeleteOwnPost">
+				<categoryname>user.forum.post</categoryname>
+				<optiontype>boolean</optiontype>
+				<defaultvalue>0</defaultvalue>
+				<userdefaultvalue>1</userdefaultvalue>
+			</option>
+			<option name="user.forum.canStartPoll">
+				<categoryname>user.forum.post</categoryname>
+				<optiontype>boolean</optiontype>
+				<defaultvalue>0</defaultvalue>
+				<userdefaultvalue>1</userdefaultvalue>
+			</option>
+			<option name="user.forum.canVotePoll">
+				<categoryname>user.forum.post</categoryname>
+				<optiontype>boolean</optiontype>
+				<defaultvalue>0</defaultvalue>
+				<userdefaultvalue>1</userdefaultvalue>
+			</option>
+			<option name="user.forum.canUploadAttachment">
+				<categoryname>user.forum.attachment</categoryname>
+				<optiontype>boolean</optiontype>
+				<defaultvalue>0</defaultvalue>
+				<userdefaultvalue>1</userdefaultvalue>
+			</option>
+			<option name="user.forum.canDownloadAttachment">
+				<categoryname>user.forum.attachment</categoryname>
+				<optiontype>boolean</optiontype>
+				<defaultvalue>1</defaultvalue>
+			</option>
+			<option name="user.forum.canViewAttachmentPreview">
+				<categoryname>user.forum.attachment</categoryname>
+				<optiontype>boolean</optiontype>
+				<defaultvalue>1</defaultvalue>
+			</option>
+			<option name="mod.forum.canEditThread">
+				<categoryname>mod.forum.thread</categoryname>
+				<optiontype>boolean</optiontype>
+				<defaultvalue>0</defaultvalue>
+				<moddefaultvalue>1</moddefaultvalue>
+				<admindefaultvalue>1</admindefaultvalue>
+				<usersonly>1</usersonly>
+			</option>
+			<option name="mod.forum.canCloseThread">
+				<categoryname>mod.forum.thread</categoryname>
+				<optiontype>boolean</optiontype>
+				<defaultvalue>0</defaultvalue>
+				<moddefaultvalue>1</moddefaultvalue>
+				<admindefaultvalue>1</admindefaultvalue>
+				<usersonly>1</usersonly>
+			</option>
+			<option name="mod.forum.canPinThread">
+				<categoryname>mod.forum.thread</categoryname>
+				<optiontype>boolean</optiontype>
+				<defaultvalue>0</defaultvalue>
+				<moddefaultvalue>1</moddefaultvalue>
+				<admindefaultvalue>1</admindefaultvalue>
+				<usersonly>1</usersonly>
+			</option>
+			<option name="mod.forum.canStartAnnouncement">
+				<categoryname>mod.forum.thread</categoryname>
+				<optiontype>boolean</optiontype>
+				<defaultvalue>0</defaultvalue>
+				<moddefaultvalue>1</moddefaultvalue>
+				<admindefaultvalue>1</admindefaultvalue>
+				<usersonly>1</usersonly>
+			</option>
+			<option name="mod.forum.canMoveThread">
+				<categoryname>mod.forum.thread</categoryname>
+				<optiontype>boolean</optiontype>
+				<defaultvalue>0</defaultvalue>
+				<moddefaultvalue>1</moddefaultvalue>
+				<admindefaultvalue>1</admindefaultvalue>
+				<usersonly>1</usersonly>
+			</option>
+			<option name="mod.forum.canMergeThread">
+				<categoryname>mod.forum.thread</categoryname>
+				<optiontype>boolean</optiontype>
+				<defaultvalue>0</defaultvalue>
+				<moddefaultvalue>1</moddefaultvalue>
+				<admindefaultvalue>1</admindefaultvalue>
+				<usersonly>1</usersonly>
+			</option>
+			<option name="mod.forum.canMarkAsDoneThread">
+				<categoryname>mod.forum.thread</categoryname>
+				<optiontype>boolean</optiontype>
+				<defaultvalue>0</defaultvalue>
+				<moddefaultvalue>1</moddefaultvalue>
+				<admindefaultvalue>1</admindefaultvalue>
+				<usersonly>1</usersonly>
+			</option>
+			<option name="mod.forum.canMarkBestAnswer">
+				<categoryname>mod.forum.thread</categoryname>
+				<optiontype>boolean</optiontype>
+				<defaultvalue>0</defaultvalue>
+				<moddefaultvalue>1</moddefaultvalue>
+				<admindefaultvalue>1</admindefaultvalue>
+				<usersonly>1</usersonly>
+			</option>
+			<option name="mod.forum.canEnableThread">
+				<categoryname>mod.forum.thread</categoryname>
+				<optiontype>boolean</optiontype>
+				<defaultvalue>0</defaultvalue>
+				<moddefaultvalue>1</moddefaultvalue>
+				<admindefaultvalue>1</admindefaultvalue>
+				<usersonly>1</usersonly>
+			</option>
+			<option name="mod.forum.canDeleteThread">
+				<categoryname>mod.forum.thread</categoryname>
+				<optiontype>boolean</optiontype>
+				<defaultvalue>0</defaultvalue>
+				<moddefaultvalue>1</moddefaultvalue>
+				<admindefaultvalue>1</admindefaultvalue>
+				<usersonly>1</usersonly>
+			</option>
+			<option name="mod.forum.canReadDeletedThread">
+				<categoryname>mod.forum.thread</categoryname>
+				<optiontype>boolean</optiontype>
+				<defaultvalue>0</defaultvalue>
+				<moddefaultvalue>1</moddefaultvalue>
+				<admindefaultvalue>1</admindefaultvalue>
+				<usersonly>1</usersonly>
+			</option>
+			<option name="mod.forum.canRestoreThread">
+				<categoryname>mod.forum.thread</categoryname>
+				<optiontype>boolean</optiontype>
+				<defaultvalue>0</defaultvalue>
+				<moddefaultvalue>1</moddefaultvalue>
+				<admindefaultvalue>1</admindefaultvalue>
+				<usersonly>1</usersonly>
+			</option>
+			<option name="mod.forum.canDeleteThreadCompletely">
+				<categoryname>mod.forum.thread</categoryname>
+				<optiontype>boolean</optiontype>
+				<defaultvalue>0</defaultvalue>
+				<moddefaultvalue>1</moddefaultvalue>
+				<admindefaultvalue>1</admindefaultvalue>
+				<usersonly>1</usersonly>
+			</option>
+			<option name="mod.forum.canReadPrivateThread">
+				<categoryname>mod.forum.thread</categoryname>
+				<optiontype>boolean</optiontype>
+				<defaultvalue>0</defaultvalue>
+				<moddefaultvalue>1</moddefaultvalue>
+				<admindefaultvalue>1</admindefaultvalue>
+				<usersonly>1</usersonly>
+			</option>
+			<option name="mod.forum.canReplyClosedThread">
+				<categoryname>mod.forum.thread</categoryname>
+				<optiontype>boolean</optiontype>
+				<defaultvalue>0</defaultvalue>
+				<moddefaultvalue>1</moddefaultvalue>
+				<admindefaultvalue>1</admindefaultvalue>
+				<usersonly>1</usersonly>
+			</option>
+			<option name="mod.forum.canEditPost">
+				<categoryname>mod.forum.post</categoryname>
+				<optiontype>boolean</optiontype>
+				<defaultvalue>0</defaultvalue>
+				<moddefaultvalue>1</moddefaultvalue>
+				<admindefaultvalue>1</admindefaultvalue>
+				<usersonly>1</usersonly>
+			</option>
+			<option name="mod.forum.canClosePost">
+				<categoryname>mod.forum.post</categoryname>
+				<optiontype>boolean</optiontype>
+				<defaultvalue>0</defaultvalue>
+				<moddefaultvalue>1</moddefaultvalue>
+				<admindefaultvalue>1</admindefaultvalue>
+				<usersonly>1</usersonly>
+			</option>
+			<option name="mod.forum.canMovePost">
+				<categoryname>mod.forum.post</categoryname>
+				<optiontype>boolean</optiontype>
+				<defaultvalue>0</defaultvalue>
+				<moddefaultvalue>1</moddefaultvalue>
+				<admindefaultvalue>1</admindefaultvalue>
+				<usersonly>1</usersonly>
+			</option>
+			<option name="mod.forum.canMergePost">
+				<categoryname>mod.forum.post</categoryname>
+				<optiontype>boolean</optiontype>
+				<defaultvalue>0</defaultvalue>
+				<moddefaultvalue>1</moddefaultvalue>
+				<admindefaultvalue>1</admindefaultvalue>
+				<usersonly>1</usersonly>
+			</option>
+			<option name="mod.forum.canEnablePost">
+				<categoryname>mod.forum.post</categoryname>
+				<optiontype>boolean</optiontype>
+				<defaultvalue>0</defaultvalue>
+				<moddefaultvalue>1</moddefaultvalue>
+				<admindefaultvalue>1</admindefaultvalue>
+				<usersonly>1</usersonly>
+			</option>
+			<option name="mod.forum.canDeletePost">
+				<categoryname>mod.forum.post</categoryname>
+				<optiontype>boolean</optiontype>
+				<defaultvalue>0</defaultvalue>
+				<moddefaultvalue>1</moddefaultvalue>
+				<admindefaultvalue>1</admindefaultvalue>
+				<usersonly>1</usersonly>
+			</option>
+			<option name="mod.forum.canReadDeletedPost">
+				<categoryname>mod.forum.post</categoryname>
+				<optiontype>boolean</optiontype>
+				<defaultvalue>0</defaultvalue>
+				<moddefaultvalue>1</moddefaultvalue>
+				<admindefaultvalue>1</admindefaultvalue>
+				<usersonly>1</usersonly>
+			</option>
+			<option name="mod.forum.canRestorePost">
+				<categoryname>mod.forum.post</categoryname>
+				<optiontype>boolean</optiontype>
+				<defaultvalue>0</defaultvalue>
+				<moddefaultvalue>1</moddefaultvalue>
+				<admindefaultvalue>1</admindefaultvalue>
+				<usersonly>1</usersonly>
+			</option>
+			<option name="mod.forum.canDeletePostCompletely">
+				<categoryname>mod.forum.post</categoryname>
+				<optiontype>boolean</optiontype>
+				<defaultvalue>0</defaultvalue>
+				<moddefaultvalue>1</moddefaultvalue>
+				<admindefaultvalue>1</admindefaultvalue>
+				<usersonly>1</usersonly>
+			</option>
+			<option name="admin.forum.canManageBoard">
+				<categoryname>admin.forum</categoryname>
+				<optiontype>boolean</optiontype>
+				<defaultvalue>0</defaultvalue>
+				<admindefaultvalue>1</admindefaultvalue>
+				<usersonly>1</usersonly>
+			</option>
+			<option name="admin.forum.canManageRssFeed">
+				<categoryname>admin.forum</categoryname>
+				<optiontype>boolean</optiontype>
+				<defaultvalue>0</defaultvalue>
+				<admindefaultvalue>1</admindefaultvalue>
+				<usersonly>1</usersonly>
+			</option>
+			<option name="user.forum.canStartPublicPoll">
+				<categoryname>user.forum.post</categoryname>
+				<optiontype>boolean</optiontype>
+				<defaultvalue>0</defaultvalue>
+				<userdefaultvalue>1</userdefaultvalue>
+			</option>
+			<option name="user.forum.postEditTimeLimit">
+				<categoryname>user.forum.post</categoryname>
+				<optiontype>integer</optiontype>
+				<defaultvalue>0</defaultvalue>
+				<minvalue>0</minvalue>
+				<suffix>minutes</suffix>
+			</option>
+			<option name="user.forum.postDeleteTimeLimit">
+				<categoryname>user.forum.post</categoryname>
+				<optiontype>integer</optiontype>
+				<defaultvalue>0</defaultvalue>
+				<minvalue>0</minvalue>
+				<suffix>minutes</suffix>
+			</option>
+			<option name="user.forum.maxPostLength">
+				<categoryname>user.forum.post</categoryname>
+				<optiontype>integer</optiontype>
+				<defaultvalue>50000</defaultvalue>
+				<minvalue>0</minvalue>
+				<suffix>chars</suffix>
+			</option>
+			<option name="user.forum.floodControlTime">
+				<categoryname>user.forum.post</categoryname>
+				<optiontype>integer</optiontype>
+				<defaultvalue>0</defaultvalue>
+				<minvalue>0</minvalue>
+				<suffix>seconds</suffix>
+			</option>
+			<option name="user.forum.maxAttachmentSize">
+				<categoryname>user.forum.attachment</categoryname>
+				<optiontype>uploadLimit</optiontype>
+				<defaultvalue>2000000</defaultvalue>
+				<minvalue>10000</minvalue>
+			</option>
+			<option name="user.forum.allowedAttachmentExtensions">
+				<categoryname>user.forum.attachment</categoryname>
+				<optiontype>lineBreakSeparatedText</optiontype>
+				<defaultvalue>gif
+jpg
+jpeg
+png
+webp
+bmp
+zip
+txt
+pdf</defaultvalue>
+			</option>
+			<option name="user.forum.maxAttachmentCount">
+				<categoryname>user.forum.attachment</categoryname>
+				<optiontype>integer</optiontype>
+				<defaultvalue>10</defaultvalue>
+				<minvalue>1</minvalue>
+				<maxvalue>100</maxvalue>
+			</option>
+			<option name="user.profile.canUseAccountSwitcher">
+				<categoryname>user.profile</categoryname>
+				<optiontype>boolean</optiontype>
+				<defaultvalue>0</defaultvalue>
+				<userdefaultvalue>1</userdefaultvalue>
+				<usersonly>1</usersonly>
+				<options>module_forum_account_switcher</options>
+			</option>
+		</options>
+	</import>
+</data>

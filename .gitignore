@@ -1,0 +1,12 @@
+# local WoltLab checkouts (scripts/fetch-vendor.sh)
+/vendor-ref/
+# local dev instance and build output
+/dev/
+/build/
+
+__pycache__/
+*.pyc
+.DS_Store
+node_modules/
+.idea/
+.vscode/

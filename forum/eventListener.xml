@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data xmlns="http://www.woltlab.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.woltlab.com http://www.woltlab.com/XSD/6.0/eventListener.xsd">
+	<import>
+		<eventlistener name="userRename">
+			<eventclassname>wcf\data\user\UserAction</eventclassname>
+			<eventname>rename</eventname>
+			<listenerclassname>forum\system\event\listener\UserActionRenameListener</listenerclassname>
+			<environment>all</environment>
+		</eventlistener>
+		<eventlistener name="userMerge">
+			<eventclassname>wcf\acp\form\UserMergeForm</eventclassname>
+			<eventname>save</eventname>
+			<listenerclassname>forum\system\event\listener\UserMergeListener</listenerclassname>
+			<environment>admin</environment>
+		</eventlistener>
+		<eventlistener name="pruneIpAddresses">
+			<eventclassname>wcf\system\cronjob\PruneIpAddressesCronjob</eventclassname>
+			<eventname>execute</eventname>
+			<listenerclassname>forum\system\event\listener\PruneIpAddressesCronjobListener</listenerclassname>
+			<environment>all</environment>
+		</eventlistener>
+		<eventlistener name="userExportGdpr">
+			<eventclassname>wcf\acp\action\UserExportGdprAction</eventclassname>
+			<eventname>export</eventname>
+			<listenerclassname>forum\system\event\listener\UserExportGdprListener</listenerclassname>
+			<environment>admin</environment>
+		</eventlistener>
+		<eventlistener name="forumUserListBoxSortField">
+			<eventclassname>wcf\system\box\UserListBoxController</eventclassname>
+			<eventname>__construct</eventname>
+			<listenerclassname>forum\system\event\listener\UserListSortFieldListener</listenerclassname>
+			<environment>all</environment>
+		</eventlistener>
+	</import>
+</data>

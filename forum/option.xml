@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data xmlns="http://www.woltlab.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.woltlab.com http://www.woltlab.com/XSD/6.0/option.xsd">
+	<import>
+		<categories>
+			<category name="forum">
+				<showorder>3</showorder>
+			</category>
+			<category name="forum.general">
+				<parent>forum</parent>
+			</category>
+			<category name="forum.general.boardList">
+				<parent>forum.general</parent>
+			</category>
+			<category name="forum.general.article">
+				<parent>forum.general</parent>
+			</category>
+			<category name="forum.general.accountSwitcher">
+				<parent>forum.general</parent>
+				<options>module_forum_account_switcher</options>
+			</category>
+			<category name="forum.thread">
+				<parent>forum</parent>
+			</category>
+			<category name="forum.thread.list">
+				<parent>forum.thread</parent>
+			</category>
+			<category name="forum.thread.general">
+				<parent>forum.thread</parent>
+			</category>
+			<category name="forum.post">
+				<parent>forum</parent>
+			</category>
+			<category name="forum.post.general">
+				<parent>forum.post</parent>
+			</category>
+		</categories>
+		<options>
+			<option name="module_forum_account_switcher">
+				<categoryname>module.user</categoryname>
+				<optiontype>boolean</optiontype>
+				<defaultvalue>1</defaultvalue>
+			</option>
+			<option name="forum_account_switcher_enable_search">
+				<categoryname>forum.general.accountSwitcher</categoryname>
+				<optiontype>boolean</optiontype>
+				<defaultvalue>1</defaultvalue>
+			</option>
+			<option name="forum_account_switcher_max_accounts">
+				<categoryname>forum.general.accountSwitcher</categoryname>
+				<optiontype>integer</optiontype>
+				<defaultvalue>20</defaultvalue>
+				<minvalue>0</minvalue>
+				<maxvalue>1000</maxvalue>
+			</option>
+			<option name="forum_board_list_enable_stats">
+				<categoryname>forum.general.boardList</categoryname>
+				<optiontype>boolean</optiontype>
+				<defaultvalue>1</defaultvalue>
+			</option>
+			<option name="forum_board_list_enable_online_list">
+				<categoryname>forum.general.boardList</categoryname>
+				<optiontype>boolean</optiontype>
+				<defaultvalue>1</defaultvalue>
+			</option>
+			<option name="forum_board_list_enable_moderators">
+				<categoryname>forum.general.boardList</categoryname>
+				<optiontype>boolean</optiontype>
+				<defaultvalue>1</defaultvalue>
+			</option>
+			<option name="forum_board_list_last_threads">
+				<categoryname>forum.general.boardList</categoryname>
+				<optiontype>integer</optiontype>
+				<defaultvalue>2</defaultvalue>
+				<minvalue>0</minvalue>
+				<maxvalue>5</maxvalue>
+			</option>
+			<option name="forum_menu_show_unread_count">
+				<categoryname>forum.general.boardList</categoryname>
+				<optiontype>boolean</optiontype>
+				<defaultvalue>1</defaultvalue>
+			</option>
+			<option name="forum_article_discussion_board_id">
+				<categoryname>forum.general.article</categoryname>
+				<optiontype>forumBoard</optiontype>
+				<defaultvalue>0</defaultvalue>
+			</option>
+			<option name="forum_threads_per_page">
+				<categoryname>forum.thread.list</categoryname>
+				<optiontype>integer</optiontype>
+				<defaultvalue>20</defaultvalue>
+				<minvalue>5</minvalue>
+				<maxvalue>100</maxvalue>
+			</option>
+			<option name="forum_thread_default_sort_field">
+				<categoryname>forum.thread.list</categoryname>
+				<optiontype>select</optiontype>
+				<defaultvalue>lastPostTime</defaultvalue>
+				<selectoptions>topic:forum.thread.topic
+username:forum.thread.author
+time:forum.thread.time
+replies:forum.thread.replies
+views:forum.thread.views
+lastPostTime:forum.thread.lastPostTime
+cumulativeLikes:forum.thread.reactions</selectoptions>
+			</option>
+			<option name="forum_thread_default_sort_order">
+				<categoryname>forum.thread.list</categoryname>
+				<optiontype>select</optiontype>
+				<defaultvalue>DESC</defaultvalue>
+				<selectoptions>ASC:wcf.global.sortOrder.ascending
+DESC:wcf.global.sortOrder.descending</selectoptions>
+			</option>
+			<option name="forum_thread_enable_similar_threads">
+				<categoryname>forum.thread.general</categoryname>
+				<optiontype>boolean</optiontype>
+				<defaultvalue>1</defaultvalue>
+				<enableoptions>forum_thread_similar_threads_count</enableoptions>
+			</option>
+			<option name="forum_thread_similar_threads_count">
+				<categoryname>forum.thread.general</categoryname>
+				<optiontype>integer</optiontype>
+				<defaultvalue>5</defaultvalue>
+				<minvalue>1</minvalue>
+				<maxvalue>20</maxvalue>
+			</option>
+			<option name="forum_thread_subscribe_default">
+				<categoryname>forum.thread.general</categoryname>
+				<optiontype>boolean</optiontype>
+				<defaultvalue>1</defaultvalue>
+			</option>
+			<option name="forum_thread_moved_link_lifetime">
+				<categoryname>forum.thread.general</categoryname>
+				<optiontype>integer</optiontype>
+				<defaultvalue>0</defaultvalue>
+				<minvalue>0</minvalue>
+				<suffix>days</suffix>
+			</option>
+			<option name="forum_trash_lifetime">
+				<categoryname>forum.thread.general</categoryname>
+				<optiontype>integer</optiontype>
+				<defaultvalue>0</defaultvalue>
+				<minvalue>0</minvalue>
+				<suffix>days</suffix>
+			</option>
+			<option name="forum_posts_per_page">
+				<categoryname>forum.post.general</categoryname>
+				<optiontype>integer</optiontype>
+				<defaultvalue>20</defaultvalue>
+				<minvalue>5</minvalue>
+				<maxvalue>100</maxvalue>
+			</option>
+			<option name="forum_post_default_sort_order">
+				<categoryname>forum.post.general</categoryname>
+				<optiontype>select</optiontype>
+				<defaultvalue>ASC</defaultvalue>
+				<selectoptions>ASC:wcf.global.sortOrder.ascending
+DESC:wcf.global.sortOrder.descending</selectoptions>
+			</option>
+			<option name="forum_post_edit_grace_period">
+				<categoryname>forum.post.general</categoryname>
+				<optiontype>integer</optiontype>
+				<defaultvalue>60</defaultvalue>
+				<minvalue>0</minvalue>
+				<suffix>seconds</suffix>
+			</option>
+			<option name="forum_post_merge_double_posts">
+				<categoryname>forum.post.general</categoryname>
+				<optiontype>integer</optiontype>
+				<defaultvalue>0</defaultvalue>
+				<minvalue>0</minvalue>
+				<suffix>minutes</suffix>
+			</option>
+		</options>
+	</import>
+</data>

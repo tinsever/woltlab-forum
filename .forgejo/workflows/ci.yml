@@ -1,0 +1,83 @@
+# Codeberg CI (Forgejo Actions).
+# Every push and pull request: lint on the lowest and highest PHP version WSC 6.2
+# supports, check the generated files, build the package.
+# Tags like v1.0.0-beta.1 also publish a release with the package attached; the
+# tag must match <version> in forum/package.xml ("1.0.0 Beta 1").
+name: ci
+
+on:
+  push:
+    branches: [main]
+    tags: ['v*']
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  lint:
+    runs-on: codeberg-tiny
+    strategy:
+      matrix:
+        php: ['8.1', '8.4']
+    container:
+      image: php:${{ matrix.php }}-cli
+    steps:
+      # the PHP image has no Node, so fetch the sources instead of using checkout
+      - name: Fetch sources
+        run: |
+          curl -fsSL "${{ github.server_url }}/${{ github.repository }}/archive/${{ github.sha }}.tar.gz" \
+            | tar -xz --strip-components=1
+      - name: Lint
+        run: ./scripts/lint.sh
+
+  build:
+    runs-on: codeberg-tiny
+    needs: lint
+    steps:
+      - uses: https://code.forgejo.org/actions/checkout@v4
+
+      - name: Check generated files
+        run: |
+          command -v python3 >/dev/null || { apt-get update -qq && apt-get install -y -qq python3; }
+          python3 scripts/gen/language.py
+          python3 scripts/gen/permissions.py
+          git diff --exit-code -- forum || {
+            echo "Generated files are out of date: run scripts/gen/language.py and scripts/gen/permissions.py"
+            exit 1
+          }
+
+      - name: Build package
+        id: package
+        run: |
+          ./scripts/build-package.sh
+          version="$(sed -n 's|.*<version>\(.*\)</version>.*|\1|p' forum/package.xml | head -1)"
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+          # "1.0.0 Beta 1" -> "v1.0.0-beta.1"
+          echo "tag=v$(echo "$version" | tr 'A-Z' 'a-z' | sed 's/ /-/; s/ /./g')" >> "$GITHUB_OUTPUT"
+
+      - uses: https://code.forgejo.org/actions/upload-artifact@v3
+        with:
+          name: com.tinsever.forum
+          path: build/packages/com.tinsever.forum.tar
+
+      - name: Check tag matches package version
+        if: startsWith(github.ref, 'refs/tags/')
+        run: |
+          if [ "${{ github.ref_name }}" != "${{ steps.package.outputs.tag }}" ]; then
+            echo "Tag ${{ github.ref_name }} does not match package.xml version ${{ steps.package.outputs.version }} (expected ${{ steps.package.outputs.tag }})"
+            exit 1
+          fi
+          mkdir -p dist/release
+          cp build/packages/com.tinsever.forum.tar dist/release/
+
+      - name: Publish release
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: https://code.forgejo.org/actions/forgejo-release@v2.13.4
+        with:
+          direction: upload
+          release-dir: dist/release
+          title: Forum ${{ steps.package.outputs.version }}
+          release-notes: |
+            Upload com.tinsever.forum.tar in the ACP under Configuration > Packages > Install Package.
+            Requires WoltLab Suite Core 6.2.
+          prerelease: ${{ contains(github.ref_name, 'alpha') || contains(github.ref_name, 'beta') || contains(github.ref_name, 'rc') }}
+          token: ${{ secrets.RELEASE_TOKEN || github.token }}

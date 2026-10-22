@@ -1,0 +1,149 @@
+Forum for WoltLab Suite
+=======================
+
+A discussion forum (boards, threads, posts) for WoltLab Suite Core 6.2.
+It is an independent implementation, installed as the application
+package "com.tinsever.forum".
+
+Status: beta (1.0.0 Beta 1). Expect bugs and do not run it on a
+production site without a backup.
+
+This project is not affiliated with or endorsed by WoltLab GmbH.
+"WoltLab" and "WoltLab Suite" are trademarks of WoltLab GmbH.
+
+
+Features
+--------
+
+  * Board list with categories, nested categories, collapsible
+    sections, statistics, users online and moderators
+  * Board pages with sortable thread lists and announcements
+  * Thread pages with quick reply, inline editing, quotes, mentions,
+    attachments, polls, reactions, tags and share links
+  * Moderation: move, split, copy, merge, close, disable and trash
+    threads and posts, including bulk actions; thread log and ACP
+    modification log
+  * Per-board permissions (ACL) next to the global group permissions
+  * Unread, latest, unanswered, undone, watched and participated
+    thread lists; thread subscriptions and notifications
+  * Boxes: thread list, hot threads, board list, forum statistics
+  * Search, sitemaps, RSS feeds of threads and RSS feed import
+  * Article discussions in forum threads
+  * Account switcher for linked user accounts
+  * Data importers compatible with exporters written for
+    WoltLab Burning Board (com.woltlab.wbb.*)
+  * English and German translations
+
+
+Requirements
+------------
+
+  * WoltLab Suite Core 6.2.x (6.3 is not supported yet)
+  * PHP and database as required by WoltLab Suite Core 6.2
+    (PHP 8.1.2 to 8.4.x)
+
+
+Installation
+------------
+
+1. Download com.tinsever.forum.tar from
+   https://codeberg.org/tinsever/woltlab-forum/releases
+   or build it yourself (see "Building" below).
+2. In the ACP, go to Configuration > Packages > Install Package and
+   upload the archive.
+3. Create your boards under Forum > Boards.
+
+Updating works the same way: upload the newer archive and WoltLab
+Suite runs the update. All 1.0.0 Alpha and Beta versions can update to
+the latest release.
+
+
+Building
+--------
+
+    ./scripts/build-package.sh
+
+This writes build/packages/com.tinsever.forum.tar.
+
+Codeberg CI (.forgejo/workflows/ci.yml) lints the code on PHP 8.1 and
+8.4, checks the generated files and builds the package on every push;
+the archive is attached to each run as an artifact.
+
+To publish a release, bump <version> in forum/package.xml and push a
+matching tag: "1.0.0 Beta 2" becomes v1.0.0-beta.2, "1.0.0" becomes
+v1.0.0. CI then creates the release with the package attached. If the
+built-in token cannot create releases, add a repository secret
+RELEASE_TOKEN with write:repository scope.
+
+
+Development
+-----------
+
+The scripts set up a local WoltLab Suite install in developer mode,
+served by PHP's built-in web server. You need PHP 8.2 (or any version
+WSC 6.2 supports), MariaDB/MySQL, git, rsync and Python 3.
+
+1. Fetch the WoltLab sources into vendor-ref/:
+
+       ./scripts/fetch-vendor.sh
+
+2. Create a database user that may create the database "wsc".
+   The defaults are user "wsc" / password "wsc" on 127.0.0.1; override
+   them with DB_HOST, DB_USER and DB_PASSWORD.
+
+3. Install everything from scratch (this DROPS the "wsc" database):
+
+       ./scripts/dev-reinstall.sh
+
+   The server listens on port 80 because the WSC frontend does not
+   accept a non-default port. Set PHP_BIN if php is not at
+   /opt/homebrew/opt/php@8.2/bin/php. The router only accepts requests
+   from localhost.
+
+   Frontend: http://localhost/wsc/forum/
+   ACP:      http://localhost/wsc/acp/
+   Logins:   dev / root (admin), alice / alice, bob / bob
+
+Day-to-day scripts:
+
+  scripts/dev-server.sh start|stop   start or stop the web server
+  scripts/dev-sync.sh                copy PHP, JS, CSS and templates into
+                                     the dev install
+  scripts/dev_sync_pips.py [url] [pip ...]
+                                     re-apply XML and language PIPs
+                                     without losing data
+  scripts/dev_worker.py CLASS ...    run rebuild-data workers
+  scripts/install_package.py TAR     install a package archive via the ACP
+  scripts/uninstall_package.py ID    uninstall a package
+  scripts/check-phrases.sh           list phrases that are used but missing
+  scripts/lint.sh                    PHP syntax and XML well-formedness
+
+Language files and permission XML are generated. Edit the tables in
+scripts/gen/ and run:
+
+    python3 scripts/gen/language.py
+    python3 scripts/gen/permissions.py
+
+When releasing a version that removes files, templates or pages, list
+them in fileDelete.xml, templateDelete.xml or the <delete> block of
+page.xml, and bump <version> in package.xml.
+
+
+Layout
+------
+
+  forum/            package source (package.xml, PIP XML files)
+    files/          application files (PHP, JS, SCSS)
+    files_wcf/      files installed into the WCF directory
+    templates/      frontend templates
+    acptemplates/   ACP templates
+    language/       en.xml, de.xml (generated)
+  scripts/          build and development helpers
+  vendor-ref/       WoltLab sources (not tracked, see fetch-vendor.sh)
+  build/, dev/      build output and local install (not tracked)
+
+
+License
+-------
+
+GNU Lesser General Public License, version 2.1. See LICENSE.

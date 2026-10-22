@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package name="com.tinsever.forum" xmlns="http://www.woltlab.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.woltlab.com http://www.woltlab.com/XSD/6.0/package.xsd">
+	<packageinformation>
+		<packagename>Forum</packagename>
+		<packagename language="de">Forum</packagename>
+		<packagedescription>Discussion forum with boards, threads and posts for WoltLab Suite.</packagedescription>
+		<packagedescription language="de">Diskussionsforum mit Foren, Themen und Beiträgen für WoltLab Suite.</packagedescription>
+		<isapplication>1</isapplication>
+		<applicationdirectory>forum</applicationdirectory>
+		<version>1.0.0 Beta 1</version>
+		<date>2026-10-23</date>
+		<license><![CDATA[LGPL-2.1 <https://opensource.org/licenses/lgpl-license.php>]]></license>
+	</packageinformation>
+
+	<authorinformation>
+		<author>tinsever</author>
+		<authorurl>https://codeberg.org/tinsever/woltlab-forum</authorurl>
+	</authorinformation>
+
+	<requiredpackages>
+		<requiredpackage minversion="6.2.0">com.woltlab.wcf</requiredpackage>
+	</requiredpackages>
+
+	<excludedpackages>
+		<excludedpackage version="6.3.0 Alpha 1">com.woltlab.wcf</excludedpackage>
+	</excludedpackages>
+
+	<instructions type="install">
+		<instruction type="file" application="forum">files.tar</instruction>
+		<instruction type="file" application="wcf">files_wcf.tar</instruction>
+		<instruction type="database" application="forum">acp/database/install_com.tinsever.forum.php</instruction>
+		<instruction type="template" application="forum">templates.tar</instruction>
+		<instruction type="acpTemplate" application="forum">acptemplates.tar</instruction>
+		<instruction type="language" />
+		<instruction type="coreObject" />
+		<instruction type="objectType" />
+		<instruction type="option" />
+		<instruction type="userGroupOption" />
+		<instruction type="userOption" />
+		<instruction type="aclOption" />
+		<instruction type="page" />
+		<instruction type="menuItem" />
+		<instruction type="userMenu" />
+		<instruction type="box" />
+		<instruction type="userNotificationEvent" />
+		<instruction type="templateListener" />
+		<instruction type="cronjob" />
+		<instruction type="eventListener" />
+		<instruction type="script" application="forum">acp/install_com.tinsever.forum.php</instruction>
+	</instructions>
+
+	<instructions type="update" fromversion="1.0.0 *">
+		<instruction type="file" application="forum">files.tar</instruction>
+		<instruction type="file" application="wcf">files_wcf.tar</instruction>
+		<instruction type="fileDelete" />
+		<instruction type="database" application="forum">acp/database/install_com.tinsever.forum.php</instruction>
+		<instruction type="template" application="forum">templates.tar</instruction>
+		<instruction type="templateDelete" />
+		<instruction type="acpTemplate" application="forum">acptemplates.tar</instruction>
+		<instruction type="language" />
+		<instruction type="coreObject" />
+		<instruction type="objectType" />
+		<instruction type="option" />
+		<instruction type="userGroupOption" />
+		<instruction type="userOption" />
+		<instruction type="aclOption" />
+		<instruction type="page" />
+		<instruction type="menuItem" />
+		<instruction type="userMenu" />
+		<instruction type="box" />
+		<instruction type="userNotificationEvent" />
+		<instruction type="templateListener" />
+		<instruction type="cronjob" />
+		<instruction type="eventListener" />
+	</instructions>
+</package>

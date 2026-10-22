@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data xmlns="http://www.woltlab.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.woltlab.com http://www.woltlab.com/XSD/6.0/templateListener.xsd">
+	<import>
+		<templatelistener name="forumRequirePaths">
+			<environment>user</environment>
+			<templatename>headIncludeJavaScript</templatename>
+			<eventname>requirePaths</eventname>
+			<templatecode><![CDATA['Forum': '{unsafe:$__wcf->getPath('forum')|encodeJS}js/Forum',]]></templatecode>
+		</templatelistener>
+		<templatelistener name="forumJavaScriptInit">
+			<environment>user</environment>
+			<templatename>headIncludeJavaScript</templatename>
+			<eventname>javascriptInit</eventname>
+			<templatecode><![CDATA[require(['Forum/Bootstrap'], ({ setup }) => setup());]]></templatecode>
+		</templatelistener>
+		<templatelistener name="forumAccountSwitcher">
+			<environment>user</environment>
+			<templatename>pageHeaderUser</templatename>
+			<eventname>menuItems</eventname>
+			<templatecode><![CDATA[{include file='__userPanelAccountSwitcher' application='forum'}]]></templatecode>
+		</templatelistener>
+		<templatelistener name="forumMessageSidebarPosts">
+			<environment>user</environment>
+			<templatename>messageSidebar</templatename>
+			<eventname>userCredits</eventname>
+			<templatecode><![CDATA[{if $userProfile->forumPosts}<dt><a href="{link controller='UserPostList' application='forum' object=$userProfile}{/link}" class="jsTooltip" title="{lang user=$userProfile}forum.user.showPosts{/lang}">{lang}forum.user.posts{/lang}</a></dt><dd>{#$userProfile->forumPosts}</dd>{/if}]]></templatecode>
+		</templatelistener>
+		<templatelistener name="forumUserCardPosts">
+			<environment>user</environment>
+			<templatename>userCard</templatename>
+			<eventname>beforeStats</eventname>
+			<templatecode><![CDATA[{if $user->forumPosts}<a class="userCard__footer__statsItem" href="{link controller='UserPostList' application='forum' object=$user}{/link}"><span class="userCard__footer__statsItem__key">{lang}forum.user.posts{/lang}</span><span class="userCard__footer__statsItem__value">{#$user->forumPosts}</span></a>{/if}]]></templatecode>
+		</templatelistener>
+		<templatelistener name="forumQuickReplySettings">
+			<environment>user</environment>
+			<templatename>messageFormSettingsInline</templatename>
+			<eventname>settings</eventname>
+			<templatecode><![CDATA[{if $__forumQuickReplyThread|isset}{include file='__threadQuickReplySettings' application='forum'}{/if}]]></templatecode>
+		</templatelistener>
+	</import>
+</data>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data xmlns="http://www.woltlab.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.woltlab.com http://www.woltlab.com/XSD/6.0/menuItem.xsd">
+	<import>
+		<item identifier="com.tinsever.forum.BoardList">
+			<menu>com.woltlab.wcf.MainMenu</menu>
+			<title language="de">Forum</title>
+			<title language="en">Forum</title>
+			<page>com.tinsever.forum.BoardList</page>
+		</item>
+		<item identifier="com.tinsever.forum.UnreadThreadList">
+			<parent>com.tinsever.forum.BoardList</parent>
+			<title language="de">Ungelesene Themen</title>
+			<title language="en">Unread Threads</title>
+			<page>com.tinsever.forum.UnreadThreadList</page>
+		</item>
+		<item identifier="com.tinsever.forum.LatestThreadList">
+			<parent>com.tinsever.forum.BoardList</parent>
+			<title language="de">Neueste Themen</title>
+			<title language="en">Latest Threads</title>
+			<page>com.tinsever.forum.LatestThreadList</page>
+		</item>
+		<item identifier="com.tinsever.forum.UnansweredThreadList">
+			<parent>com.tinsever.forum.BoardList</parent>
+			<title language="de">Unbeantwortete Themen</title>
+			<title language="en">Unanswered Threads</title>
+			<page>com.tinsever.forum.UnansweredThreadList</page>
+		</item>
+		<item identifier="com.tinsever.forum.WatchedThreadList">
+			<parent>com.tinsever.forum.BoardList</parent>
+			<title language="de">Abonnierte Themen</title>
+			<title language="en">Watched Threads</title>
+			<page>com.tinsever.forum.WatchedThreadList</page>
+		</item>
+	</import>
+</data>
