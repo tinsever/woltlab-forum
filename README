@@ -30,6 +30,7 @@ Features
   * Search, sitemaps, RSS feeds of threads and RSS feed import
   * Article discussions in forum threads
   * Account switcher for linked user accounts
+  * Optional list view for the members list, with sortable columns
   * Data importers compatible with exporters written for
     WoltLab Burning Board (com.woltlab.wbb.*)
   * English and German translations

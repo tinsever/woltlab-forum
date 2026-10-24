@@ -31,5 +31,11 @@
 			<listenerclassname>forum\system\event\listener\UserListSortFieldListener</listenerclassname>
 			<environment>all</environment>
 		</eventlistener>
+		<eventlistener name="forumMembersListViewMode">
+			<eventclassname>wcf\page\MembersListPage</eventclassname>
+			<eventname>show</eventname>
+			<listenerclassname>forum\system\event\listener\MembersListViewModeListener</listenerclassname>
+			<environment>user</environment>
+		</eventlistener>
 	</import>
 </data>

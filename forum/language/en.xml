@@ -309,6 +309,8 @@
 		<item name="forum.thread.watchedThreads"><![CDATA[Watched Threads]]></item>
 	</category>
 	<category name="forum.user">
+		<item name="forum.user.members.view.cards"><![CDATA[Card View]]></item>
+		<item name="forum.user.members.view.list"><![CDATA[List View]]></item>
 		<item name="forum.user.notification.post.mention.mail.html"><![CDATA[<p>{unsafe:$authorList} mentioned you in the thread <a href="{$post->getLink()}">{$thread->topic}</a>:</p>]]></item>
 		<item name="forum.user.notification.post.mention.mail.plaintext"><![CDATA[{unsafe:$authorList} mentioned you in the thread “{unsafe:$thread->topic}” [URL:{unsafe:$post->getLink()}]:]]></item>
 		<item name="forum.user.notification.post.mention.mail.title"><![CDATA["{unsafe:$author}" mentioned you in "{unsafe:$thread->topic}"]]></item>
@@ -553,6 +555,11 @@
 		<item name="wcf.acp.option.forum_board_list_enable_stats"><![CDATA[Show statistics in the board list]]></item>
 		<item name="wcf.acp.option.forum_board_list_last_threads"><![CDATA[Recent threads per board]]></item>
 		<item name="wcf.acp.option.forum_board_list_last_threads.description"><![CDATA[Number of threads with the most recent activity that are shown next to each board, <kbd>0</kbd> hides them.]]></item>
+		<item name="wcf.acp.option.forum_members_list_default_view"><![CDATA[Default view]]></item>
+		<item name="wcf.acp.option.forum_members_list_default_view.cards"><![CDATA[Cards]]></item>
+		<item name="wcf.acp.option.forum_members_list_default_view.list"><![CDATA[List]]></item>
+		<item name="wcf.acp.option.forum_members_list_enable_view_switch"><![CDATA[Visitors can switch the view]]></item>
+		<item name="wcf.acp.option.forum_members_list_enable_view_switch.description"><![CDATA[The chosen view is stored in a cookie.]]></item>
 		<item name="wcf.acp.option.forum_menu_show_unread_count"><![CDATA[Show the number of unread threads in the main menu]]></item>
 		<item name="wcf.acp.option.forum_post_default_sort_order"><![CDATA[Sort order of posts]]></item>
 		<item name="wcf.acp.option.forum_post_edit_grace_period"><![CDATA[Grace period for edits]]></item>

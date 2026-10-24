@@ -855,3 +855,122 @@ html:not(.touch) .forumAccountSwitcher__switch:not(:disabled):hover,
 .forumAccountSwitcherList__buttons {
 	margin-top: 10px;
 }
+
+/* members list as table */
+.forumMembersTable {
+	display: flex;
+	flex-direction: column;
+}
+
+.forumMembersTable__header,
+.forumMembersTable__row {
+	align-items: center;
+	column-gap: 15px;
+	display: flex;
+	padding: 10px 0;
+}
+
+.forumMembersTable__header {
+	border-bottom: 1px solid var(--wcfContentBorderInner);
+	color: var(--wcfContentDimmedText);
+	padding-top: 0;
+
+	@include wcfFontSmall;
+}
+
+.forumMembersTable__row:not(:last-child) {
+	border-bottom: 1px solid var(--wcfContentBorderInner);
+}
+
+.forumMembersTable__user {
+	align-items: center;
+	display: flex;
+	flex: 1 1 auto;
+	gap: 10px;
+	min-width: 0;
+}
+
+.forumMembersTable__avatar {
+	flex: 0 0 auto;
+	height: 32px;
+	position: relative;
+	width: 32px;
+}
+
+.forumMembersTable__onlineIndicator {
+	background-color: var(--wcfStatusSuccessText, rgb(60 118 61));
+	border: 2px solid var(--wcfContentBackground);
+	border-radius: 50%;
+	bottom: -2px;
+	height: 12px;
+	position: absolute;
+	right: -2px;
+	width: 12px;
+}
+
+.forumMembersTable__name {
+	align-items: center;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 5px 8px;
+	min-width: 0;
+	overflow-wrap: anywhere;
+
+	.userLink {
+		@include wcfFontBold;
+	}
+}
+
+.forumMembersTable__cell {
+	flex: 0 0 90px;
+	text-align: end;
+}
+
+.forumMembersTable__cell--registrationDate {
+	flex-basis: 130px;
+}
+
+.forumMembersTable__cell--lastActivity {
+	flex-basis: 150px;
+}
+
+.forumMembersTable__interactions {
+	display: flex;
+	flex: 0 0 36px;
+	justify-content: flex-end;
+}
+
+.forumMembersTable__sort {
+	align-items: center;
+	background: none;
+	border: 0;
+	color: inherit;
+	cursor: pointer;
+	display: inline-flex;
+	font: inherit;
+	gap: 4px;
+	padding: 0;
+
+	&:hover,
+	&.forumMembersTable__sort--active {
+		color: var(--wcfContentText);
+	}
+}
+
+@include screen-sm-down {
+	.forumMembersTable__cell--registrationDate,
+	.forumMembersTable__cell--reactions,
+	.forumMembersTable__cell--activityPoints {
+		display: none;
+	}
+}
+
+@include screen-xs {
+	.forumMembersTable__cell--lastActivity {
+		display: none;
+	}
+
+	.forumMembersTable__cell--posts {
+		flex-basis: auto;
+	}
+}

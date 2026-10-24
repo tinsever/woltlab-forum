@@ -53,6 +53,18 @@ PHRASES = {
     'wcf.user.condition.forumPosts': ('Forum Posts', 'Forenbeiträge'),
     'wcf.user.sortField.forumPosts': ('Forum Posts', 'Forenbeiträge'),
 
+    # members list as table
+    'wcf.acp.option.forum_members_list_default_view': ('Default view', 'Standardansicht'),
+    'wcf.acp.option.forum_members_list_default_view.cards': ('Cards', 'Karten'),
+    'wcf.acp.option.forum_members_list_default_view.list': ('List', 'Liste'),
+    'wcf.acp.option.forum_members_list_enable_view_switch': ('Visitors can switch the view', 'Besucher können die Ansicht wechseln'),
+    'wcf.acp.option.forum_members_list_enable_view_switch.description': (
+        'The chosen view is stored in a cookie.',
+        'Die gewählte Ansicht wird in einem Cookie gespeichert.',
+    ),
+    'forum.user.members.view.cards': ('Card View', 'Kartenansicht'),
+    'forum.user.members.view.list': ('List View', 'Listenansicht'),
+
     # article discussions
     'wcf.acp.option.category.forum.general.article': ('Article Discussions', 'Artikel-Diskussionen'),
     'wcf.acp.option.forum_article_discussion_board_id': ('Discuss articles in the forum', 'Artikel im Forum diskutieren'),

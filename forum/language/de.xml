@@ -309,6 +309,8 @@
 		<item name="forum.thread.watchedThreads"><![CDATA[Abonnierte Themen]]></item>
 	</category>
 	<category name="forum.user">
+		<item name="forum.user.members.view.cards"><![CDATA[Kartenansicht]]></item>
+		<item name="forum.user.members.view.list"><![CDATA[Listenansicht]]></item>
 		<item name="forum.user.notification.post.mention.mail.html"><![CDATA[<p>{unsafe:$authorList} hat Sie im Thema <a href="{$post->getLink()}">{$thread->topic}</a> erwähnt:</p>]]></item>
 		<item name="forum.user.notification.post.mention.mail.plaintext"><![CDATA[{unsafe:$authorList} hat Sie im Thema „{unsafe:$thread->topic}“ erwähnt [URL:{unsafe:$post->getLink()}]:]]></item>
 		<item name="forum.user.notification.post.mention.mail.title"><![CDATA[„{unsafe:$author}“ hat Sie in „{unsafe:$thread->topic}“ erwähnt]]></item>
@@ -553,6 +555,11 @@
 		<item name="wcf.acp.option.forum_board_list_enable_stats"><![CDATA[Statistik in der Forenübersicht anzeigen]]></item>
 		<item name="wcf.acp.option.forum_board_list_last_threads"><![CDATA[Letzte Themen pro Forum]]></item>
 		<item name="wcf.acp.option.forum_board_list_last_threads.description"><![CDATA[Anzahl der Themen mit der jüngsten Aktivität, die neben jedem Forum angezeigt werden, <kbd>0</kbd> blendet sie aus.]]></item>
+		<item name="wcf.acp.option.forum_members_list_default_view"><![CDATA[Standardansicht]]></item>
+		<item name="wcf.acp.option.forum_members_list_default_view.cards"><![CDATA[Karten]]></item>
+		<item name="wcf.acp.option.forum_members_list_default_view.list"><![CDATA[Liste]]></item>
+		<item name="wcf.acp.option.forum_members_list_enable_view_switch"><![CDATA[Besucher können die Ansicht wechseln]]></item>
+		<item name="wcf.acp.option.forum_members_list_enable_view_switch.description"><![CDATA[Die gewählte Ansicht wird in einem Cookie gespeichert.]]></item>
 		<item name="wcf.acp.option.forum_menu_show_unread_count"><![CDATA[Anzahl ungelesener Themen im Hauptmenü anzeigen]]></item>
 		<item name="wcf.acp.option.forum_post_default_sort_order"><![CDATA[Sortierreihenfolge der Beiträge]]></item>
 		<item name="wcf.acp.option.forum_post_edit_grace_period"><![CDATA[Karenzzeit für Bearbeitungen]]></item>

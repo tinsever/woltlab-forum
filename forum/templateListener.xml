@@ -37,5 +37,11 @@
 			<eventname>settings</eventname>
 			<templatecode><![CDATA[{if $__forumQuickReplyThread|isset}{include file='__threadQuickReplySettings' application='forum'}{/if}]]></templatecode>
 		</templatelistener>
+		<templatelistener name="forumMembersListViewSwitch">
+			<environment>user</environment>
+			<templatename>contentInteraction</templatename>
+			<eventname>beforeButtons</eventname>
+			<templatecode><![CDATA[{if $__forumMembersListView|isset}{include file='__membersListViewSwitch' application='forum'}{/if}]]></templatecode>
+		</templatelistener>
 	</import>
 </data>

@@ -56,8 +56,47 @@ define(["require", "exports", "WoltLabSuite/Core/LazyLoader", "WoltLabSuite/Core
         });
     }
 
+    /**
+     * Sorts the members table by clicking a column header and keeps the
+     * current sorting, filters and page when switching the view.
+     */
+    function setupMembersTable() {
+        document.addEventListener("click", (event) => {
+            const target = event.target;
+            if (!(target instanceof Element)) {
+                return;
+            }
+
+            const sortButton = target.closest("[data-forum-members-sort]");
+            if (sortButton) {
+                const items = sortButton.closest(".listView__items");
+                const viewId = items ? items.id.replace(/_items$/, "") : "";
+                const menu = viewId ? document.getElementById(`${viewId}_sorting`) : null;
+                const button = menu ? menu.querySelector(`[data-sort-id="${CSS.escape(sortButton.dataset.forumMembersSort)}"]`) : null;
+                button?.click();
+                return;
+            }
+
+            const viewLink = target.closest("a[data-forum-members-view]");
+            if (viewLink && !event.ctrlKey && !event.metaKey && !event.shiftKey && event.button === 0) {
+                event.preventDefault();
+                // WoltLab routes via the query string ("index.php?members-list/"),
+                // URLSearchParams would encode the route as a key.
+                const url = new URL(window.location.href);
+                const query = url.search
+                    .replace(/^\?/, "")
+                    .split("&")
+                    .filter((part) => part !== "" && !part.startsWith("view="));
+                query.push(`view=${encodeURIComponent(viewLink.dataset.forumMembersView)}`);
+                url.search = `?${query.join("&")}`;
+                window.location.href = url.toString();
+            }
+        });
+    }
+
     function setup() {
         setupThreadListSorting();
+        setupMembersTable();
         setupPopover(".forumThreadLink", "com.tinsever.forum.thread", "threads");
         setupPopover(".forumPostLink", "com.tinsever.forum.post", "posts");
     }

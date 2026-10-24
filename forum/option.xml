@@ -170,6 +170,18 @@ DESC:wcf.global.sortOrder.descending</selectoptions>
 				<minvalue>0</minvalue>
 				<suffix>minutes</suffix>
 			</option>
+			<option name="forum_members_list_default_view">
+				<categoryname>user.list.members</categoryname>
+				<optiontype>radioButton</optiontype>
+				<defaultvalue>cards</defaultvalue>
+				<selectoptions>cards:wcf.acp.option.forum_members_list_default_view.cards
+list:wcf.acp.option.forum_members_list_default_view.list</selectoptions>
+			</option>
+			<option name="forum_members_list_enable_view_switch">
+				<categoryname>user.list.members</categoryname>
+				<optiontype>boolean</optiontype>
+				<defaultvalue>1</defaultvalue>
+			</option>
 		</options>
 	</import>
 </data>
