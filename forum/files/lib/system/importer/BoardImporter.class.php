@@ -52,6 +52,23 @@ final class BoardImporter extends AbstractImporter
         $board = BoardEditor::create($data);
 
         ImportHandler::getInstance()->saveNewID('com.woltlab.wbb.board', $oldID, $board->boardID);
+        if (!empty($additionalData['i18n'])) {
+            $items = $updateData = [];
+            foreach (['title' => '', 'description' => '.description'] as $property => $suffix) {
+                if (empty($additionalData['i18n'][$property])) {
+                    continue;
+                }
+                $item = 'forum.board.board' . $board->boardID . $suffix;
+                $updateData[$property] = $item;
+                foreach ($additionalData['i18n'][$property] as $languageID => $value) {
+                    $items[] = ['languageID' => $languageID, 'languageItem' => $item, 'languageItemValue' => $value];
+                }
+            }
+            if ($items !== []) {
+                $this->importI18nValues($items, 'forum.board', 'com.tinsever.forum');
+                (new BoardEditor($board))->update($updateData);
+            }
+        }
         BoardEditor::resetCache();
 
         return $board->boardID;

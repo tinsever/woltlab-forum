@@ -56,6 +56,12 @@ final class PostRebuildDataWorker extends AbstractLinearRebuildDataWorker
                     AND objectID = ?";
         $attachmentStatement = WCF::getDB()->prepare($sql);
 
+        $likeObjectTypeID = ObjectTypeCache::getInstance()->getObjectTypeIDByName(
+            'com.woltlab.wcf.like.likeableObject',
+            'com.tinsever.forum.likeablePost'
+        );
+        $likeStatement = WCF::getDB()->prepare("SELECT COALESCE(SUM(likeValue), 0) FROM wcf1_like WHERE objectTypeID = ? AND objectID = ?");
+
         $userIDs = [];
         foreach ($this->objectList as $post) {
             $userIDs[] = $post->userID ?: 0;
@@ -66,7 +72,8 @@ final class PostRebuildDataWorker extends AbstractLinearRebuildDataWorker
                 SET     attachments = ?,
                         message = ?,
                         enableHtml = ?,
-                        hasEmbeddedObjects = ?
+                        hasEmbeddedObjects = ?,
+                        cumulativeLikes = ?
                 WHERE   postID = ?";
         $updateStatement = WCF::getDB()->prepare($sql);
 
@@ -82,6 +89,8 @@ final class PostRebuildDataWorker extends AbstractLinearRebuildDataWorker
         foreach ($this->objectList as $post) {
             $attachmentStatement->execute([$attachmentObjectTypeID, $post->postID]);
             $attachments = \intval($attachmentStatement->fetchSingleColumn());
+            $likeStatement->execute([$likeObjectTypeID, $post->postID]);
+            $cumulativeLikes = (int)$likeStatement->fetchSingleColumn();
 
             BBCodeHandler::getInstance()->setDisallowedBBCodes(\explode(
                 ',',
@@ -101,6 +110,7 @@ final class PostRebuildDataWorker extends AbstractLinearRebuildDataWorker
                 $processor->getHtml(),
                 1,
                 $hasEmbeddedObjects ? 1 : 0,
+                $cumulativeLikes,
                 $post->postID,
             ]);
 
@@ -115,6 +125,7 @@ final class PostRebuildDataWorker extends AbstractLinearRebuildDataWorker
             }
         }
         WCF::getDB()->commitTransaction();
+        MessageEmbeddedObjectManager::getInstance()->commitBulkOperation();
 
         if ($activityPoints !== []) {
             UserActivityPointHandler::getInstance()->fireEvents(

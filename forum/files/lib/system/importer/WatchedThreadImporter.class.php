@@ -23,11 +23,13 @@ final class WatchedThreadImporter extends AbstractImporter
             return 0;
         }
 
+        $status = ($data['status'] ?? '') === 'ignored' ? 'ignored' : 'watching';
+
         $sql = "INSERT IGNORE INTO  forum1_thread_user_status
                                     (threadID, userID, status, enableNotification)
                 VALUES              (?, ?, ?, ?)";
         $statement = WCF::getDB()->prepare($sql);
-        $statement->execute([$threadID, $userID, 'watching', isset($data['notification']) ? ($data['notification'] ? 1 : 0) : 1]);
+        $statement->execute([$threadID, $userID, $status, isset($data['notification']) ? ($data['notification'] ? 1 : 0) : 1]);
 
         return 1;
     }

@@ -1,0 +1,153 @@
+--- a/files/lib/system/exporter/WBB4xExporter.class.php
++++ b/files/lib/system/exporter/WBB4xExporter.class.php
+@@ -22,6 +22,8 @@
+  * @author  Marcel Werk
+  * @copyright   2001-2019 WoltLab GmbH
+  * @license GNU Lesser General Public License <http://opensource.org/licenses/lgpl-license.php>
++ * Modified 2026-10-24: compatibility for com.tinsever.forum labels,
++ * board assignments, subscriptions, reaction types and group translations.
+  */
+ final class WBB4xExporter extends AbstractExporter
+ {
+@@ -64,6 +66,7 @@
+         'com.woltlab.wbb.poll.option' => 'PollOptions',
+         'com.woltlab.wbb.poll.option.vote' => 'PollOptionVotes',
+         'com.woltlab.wbb.like' => 'PostLikes',
++        'com.woltlab.wcf.reactionType' => 'ReactionTypes',
+         'com.woltlab.wcf.label' => 'Labels',
+         'com.woltlab.wbb.acl' => 'ACLs',
+         'com.woltlab.wcf.smiley.category' => 'SmileyCategories',
+@@ -341,6 +344,10 @@
+         // board
+         if ($this->getPackageVersion('com.woltlab.wbb')) {
+             if (\in_array('com.woltlab.wbb.board', $this->selectedData)) {
++                if (\in_array('com.woltlab.wbb.like', $this->selectedData)
++                    && Package::compareVersion($this->getPackageVersion('com.woltlab.wcf'), '5.2.0 Alpha 1', '>=')) {
++                    $queue[] = 'com.woltlab.wcf.reactionType';
++                }
+                 $queue[] = 'com.woltlab.wbb.board';
+                 if (\in_array('com.woltlab.wcf.label', $this->selectedData)) {
+                     $queue[] = 'com.woltlab.wcf.label';
+@@ -568,7 +575,7 @@
+                 $i18nData['groupName'] = $i18nValues[$groupData['groupName']];
+             }
+             if (isset($i18nValues[$groupData['groupDescription']])) {
+-                $i18nData['groupName'] = $i18nValues[$groupData['groupDescription']];
++                $i18nData['groupDescription'] = $i18nValues[$groupData['groupDescription']];
+             }
+ 
+             ImportHandler::getInstance()
+@@ -1643,6 +1650,7 @@
+                 $data = [
+                     'objectID' => $row['objectID'],
+                     'userID' => $row['userID'],
++                    'notification' => $row['notification'],
+                 ];
+ 
+                 ImportHandler::getInstance()
+@@ -1813,6 +1821,51 @@
+     }
+ 
+     /**
++     * Counts reaction types used by WoltLab Suite 5.2 and later.
++     */
++    public function countReactionTypes()
++    {
++        $statement = $this->database->prepareUnmanaged('SELECT COUNT(*) FROM wcf' . $this->dbNo . '_reaction_type');
++        $statement->execute();
++
++        return $statement->fetchSingleColumn();
++    }
++
++    /**
++     * Reuses matching target icons and imports custom reaction types.
++     */
++    public function exportReactionTypes($offset, $limit)
++    {
++        $statement = $this->database->prepareUnmanaged(
++            'SELECT * FROM wcf' . $this->dbNo . '_reaction_type ORDER BY reactionTypeID',
++            $limit,
++            $offset
++        );
++        $statement->execute();
++        $targetStatement = WCF::getDB()->prepare('SELECT reactionTypeID FROM wcf1_reaction_type WHERE iconFile = ?', 1);
++        while ($row = $statement->fetchArray()) {
++            $targetStatement->execute([$row['iconFile']]);
++            $targetID = $targetStatement->fetchSingleColumn();
++            if ($targetID) {
++                ImportHandler::getInstance()->saveNewID('com.woltlab.wcf.reactionType', $row['reactionTypeID'], $targetID);
++                continue;
++            }
++
++            $titles = $this->getI18nValues([$row['title']]);
++            $values = $titles[$row['title']] ?? [];
++            $title = $values[LanguageFactory::getInstance()->getDefaultLanguageID()] ?? (\reset($values) ?: $row['title']);
++            $targetID = ImportHandler::getInstance()->getImporter('com.woltlab.wcf.reactionType')->import(
++                $row['reactionTypeID'],
++                ['title' => $title, 'showOrder' => $row['showOrder']],
++                ['fileLocation' => $this->fileSystemPath . 'images/reaction/' . \basename($row['iconFile'])]
++            );
++            if (!$targetID) {
++                throw new \wcf\system\exception\SystemException('Cannot import reaction icon: ' . $row['iconFile']);
++            }
++        }
++    }
++
++    /**
+      * Counts likes.
+      */
+     public function countPostLikes()
+@@ -1899,18 +1952,33 @@
+ 
+         if (!empty($labelGroups)) {
+             $objectType = ObjectTypeCache::getInstance()
+-                ->getObjectTypeByName('com.woltlab.wcf.label.objectType', 'com.woltlab.wbb.board');
++                ->getObjectTypeByName('com.woltlab.wcf.label.objectType', 'com.woltlab.wbb.board')
++                ?? ObjectTypeCache::getInstance()
++                    ->getObjectTypeByName('com.woltlab.wcf.label.objectType', 'com.tinsever.forum.board');
++            if ($objectType === null) {
++                throw new \wcf\system\exception\SystemException('No board label object type is registered in the target installation.');
++            }
+ 
+             foreach ($labelGroups as $labelGroup) {
+                 // import label group
+                 $data = [
+                     'groupName' => $labelGroup['groupName'],
+                     'groupDescription' => $labelGroup['groupDescription'] ?? '',
++                    'forceSelection' => $labelGroup['forceSelection'] ?? 0,
++                    'showOrder' => $labelGroup['showOrder'] ?? 0,
+                 ];
+ 
++                // LabelGroupImporter expects target IDs, not the IDs from the source forum.
++                $targetBoardIDs = [];
++                foreach ($boardIDs[$labelGroup['groupID']] ?? [] as $oldBoardID) {
++                    $newBoardID = ImportHandler::getInstance()->getNewID('com.woltlab.wbb.board', $oldBoardID);
++                    if ($newBoardID) {
++                        $targetBoardIDs[] = $newBoardID;
++                    }
++                }
+                 $additionalData = [
+                     'objects' => [
+-                        $objectType->objectTypeID => !empty($boardIDs[$labelGroup['groupID']]) ? $boardIDs[$labelGroup['groupID']] : [],
++                        $objectType->objectTypeID => \array_unique($targetBoardIDs),
+                     ],
+                 ];
+ 
+@@ -1929,6 +1997,7 @@
+                             'groupID' => $labelGroup['groupID'],
+                             'label' => $label['label'],
+                             'cssClassName' => $label['cssClassName'],
++                            'showOrder' => $label['showOrder'] ?? 0,
+                         ];
+ 
+                         ImportHandler::getInstance()
+@@ -4492,6 +4561,9 @@
+                 'time' => $row['time'],
+             ];
+ 
++            if ($importer === 'com.woltlab.wbb.like' && !empty($row['reactionTypeID'])) {
++                $data['reactionTypeID'] = $row['reactionTypeID'];
++            }
+             ImportHandler::getInstance()
+                 ->getImporter($importer)
+                 ->import(0, $data);

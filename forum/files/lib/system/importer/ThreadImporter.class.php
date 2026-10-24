@@ -51,7 +51,9 @@ final class ThreadImporter extends AbstractImporter
             $data['movedThreadID'] = null;
         }
 
-        if (!empty($data['languageID'])) {
+        if (!empty($additionalData['languageCode'])) {
+            $data['languageID'] = LanguageFactory::getInstance()->getLanguageByCode($additionalData['languageCode'])?->languageID;
+        } elseif (!empty($data['languageID'])) {
             $data['languageID'] = LanguageFactory::getInstance()->getLanguage((int)$data['languageID'])?->languageID;
         } else {
             $data['languageID'] = null;
