@@ -151,3 +151,50 @@
              ImportHandler::getInstance()
                  ->getImporter($importer)
                  ->import(0, $data);
+@@ -4529,6 +4601,10 @@
+      */
+     private function exportAttachments($objectType, $importer, $offset, $limit)
+     {
++        if ($offset == 0) {
++            $this->reserveAttachmentIDs();
++        }
++
+         if (\version_compare($this->getPackageVersion('com.woltlab.wcf'), '6.1.0 Alpha 1', '>=')) {
+             $this->exportAttachmentsFromFiles($objectType, $importer, $offset, $limit);
+ 
+@@ -4571,6 +4647,35 @@
+     }
+ 
+     /**
++     * Moves the next free attachment ID of the target above every attachment ID
++     * of the source.
++     *
++     * Attachments keep their old ID when it is free. An attachment whose ID is
++     * already taken gets the next free one, which used to be the ID of a later
++     * source attachment. That one then had to move as well, and so on, while
++     * the embedded references in the messages were rewritten each time and
++     * ended up pointing at the wrong attachments or at none at all.
++     */
++    private function reserveAttachmentIDs(): void
++    {
++        $sql = "SELECT  MAX(attachmentID)
++                FROM    wcf" . $this->dbNo . "_attachment";
++        $statement = $this->database->prepareUnmanaged($sql);
++        $statement->execute();
++        $sourceMax = (int)$statement->fetchSingleColumn();
++
++        $sql = "SELECT  MAX(attachmentID)
++                FROM    wcf1_attachment";
++        $statement = WCF::getDB()->prepare($sql);
++        $statement->execute();
++        $targetMax = (int)$statement->fetchSingleColumn();
++
++        // InnoDB never lowers the counter below the highest existing ID.
++        $next = \max($sourceMax, $targetMax) + 1;
++        WCF::getDB()->prepare("ALTER TABLE wcf1_attachment AUTO_INCREMENT = " . $next)->execute();
++    }
++
++    /**
+      * Exports the attachments stored using the upload pipeline starting with
+      * WoltLab Suite 6.1.
+      *

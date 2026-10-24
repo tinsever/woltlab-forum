@@ -25,7 +25,7 @@ import sys
 
 path = Path(sys.argv[1]) / 'package.xml'
 xml = path.read_text()
-xml = xml.replace('<version>6.2.7</version>', '<version>6.2.8 dev 2</version>')
+xml = xml.replace('<version>6.2.7</version>', '<version>6.2.8 dev 3</version>')
 # Include the object type and language instructions when updating older versions.
 xml = xml.replace('type="update" fromversion="6.2.6"', 'type="update" fromversion="6.2.*"')
 xml = xml.replace('<instruction type="file">files_update.tar</instruction>',
@@ -40,13 +40,16 @@ cp "$SRC/LICENSE" "$STAGE/LICENSE"
 cp "$STAGE/files.tar" "$STAGE/files_update.tar"
 cp "$ROOT/patches/woltlab-importer-compatibility.patch" "$STAGE/"
 cat > "$STAGE/SOURCE.txt" <<EOF
-WoltLab Suite Core: Importer 6.2.7, locally patched as 6.2.8 dev 2.
+WoltLab Suite Core: Importer 6.2.7, locally patched as 6.2.8 dev 3.
 Source: https://github.com/WoltLab/com.woltlab.wcf.exporter/tree/6.2.7
 Commit: $COMMIT
 License: GNU LGPL 2.1; see LICENSE.
 Modified on 2026-10-24: WBB4xExporter supports this forum's label object type,
 remaps label-group board assignments, preserves label and subscription
-settings, imports reaction types, and fixes group translations. See the patch.
+settings, imports reaction types, and fixes group translations. Before
+attachments are imported, the next free attachment ID of the target is moved
+above all source IDs, so a taken ID no longer shifts every later attachment
+and its embedded references. See the patch.
 package.xml declares the local patch version and a complete update path.
 files_update.tar contains the full files tree.
 EOF

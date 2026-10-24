@@ -216,6 +216,31 @@ try {
     mkdir($sourcePath . '/attachments/' . substr($avatarHash, 0, 2), 0777, true);
     file_put_contents($sourcePath . '/attachments/' . substr($avatarHash, 0, 2) . '/2-' . $avatarHash . '.bin', $avatarData);
     insertRow($pdo, 'wcf7_attachment', ['attachmentID' => 2, 'objectTypeID' => $objectTypes['com.woltlab.wcf.attachment.objectType'], 'objectID' => 2, 'userID' => 2, 'filename' => 'bild.png', 'fileHash' => $avatarHash]);
+    // Post 1 embeds three attachments. The colliding target attachment 1 used
+    // to push the following IDs into the range of later source attachments.
+    $extraImages = [];
+    foreach ([3 => ['foto.jpg', 'imagejpeg', 40], 4 => ['animation.gif', 'imagegif', 24]] as $id => [$name, $writer, $size]) {
+        $picture = imagecreatetruecolor($size, $size);
+        imagefill($picture, 0, 0, imagecolorallocate($picture, 10 * $id, 120, 200));
+        ob_start();
+        $writer($picture);
+        $bytes = ob_get_clean();
+        $pictureHash = sha1($bytes);
+        @mkdir($sourcePath . '/attachments/' . substr($pictureHash, 0, 2), 0777, true);
+        file_put_contents($sourcePath . '/attachments/' . substr($pictureHash, 0, 2) . '/' . $id . '-' . $pictureHash . '.bin', $bytes);
+        insertRow($pdo, 'wcf7_attachment', ['attachmentID' => $id, 'objectTypeID' => $objectTypes['com.woltlab.wcf.attachment.objectType'], 'objectID' => 1, 'userID' => 1, 'filename' => $name, 'fileHash' => $pictureHash, 'showOrder' => $id]);
+        $extraImages[$name] = $size;
+    }
+    $pdo->prepare('UPDATE wbb7_post SET message = ? WHERE postID = 1')->execute(['<p>Übernommener Beitrag mit <strong>Formatierung</strong> [attach]1[/attach] [attach]3[/attach] <woltlab-metacode data-name="attach" data-attributes="' . base64_encode(json_encode([4, 'none', true])) . '"></woltlab-metacode> <woltlab-metacode data-name="attach" data-attributes="' . base64_encode(json_encode([1, 'none', false])) . '"></woltlab-metacode></p>']);
+    $jpegAvatar = imagecreatetruecolor(48, 48);
+    ob_start();
+    imagejpeg($jpegAvatar);
+    $jpegAvatarData = ob_get_clean();
+    $jpegAvatarHash = sha1($jpegAvatarData);
+    @mkdir($sourcePath . '/images/avatars/' . substr($jpegAvatarHash, 0, 2), 0777, true);
+    file_put_contents($sourcePath . '/images/avatars/' . substr($jpegAvatarHash, 0, 2) . '/2-' . $jpegAvatarHash . '.jpg', $jpegAvatarData);
+    insertRow($pdo, 'wcf7_user_avatar', ['avatarID' => 2, 'userID' => 2, 'avatarName' => 'avatar.jpg', 'fileHash' => $jpegAvatarHash, 'avatarExtension' => 'jpg']);
+    $pdo->exec('UPDATE wcf7_user SET avatarID = 2 WHERE userID = 2');
     $pdo->prepare('UPDATE wbb7_post SET message = ? WHERE postID = 2')->execute(['<p>Antwort von Bob <woltlab-metacode data-name="attach" data-attributes="' . base64_encode(json_encode([2])) . '"></woltlab-metacode></p>']);
 
     $sourceChecksums = $pdo->query('CHECKSUM TABLE wcf7_user, wcf7_label, wbb7_board, wbb7_thread, wbb7_post, wcf7_attachment')->fetchAll(PDO::FETCH_ASSOC);
@@ -253,7 +278,7 @@ try {
     check((int)$thread['boardID'] === (int)$board2 && (int)$post['threadID'] === (int)$thread1, 'Threads and posts use target IDs');
     check((int)$post['userID'] === (int)$user1, 'Post author remapped');
     check((int)$thread['replies'] === 2, 'Visible reply counter excludes disabled and deleted posts');
-    check((int)$post['attachments'] === 1 && (int)$post['pollID'] > 0, 'Attachments and poll connected to the post');
+    check((int)$post['attachments'] === 3 && (int)$post['pollID'] > 0, 'Attachments and poll connected to the post');
     check((int)$thread['hasLabels'] === 1, 'Thread label assignment');
     check((int)$thread['languageID'] === (int)\wcf\system\language\LanguageFactory::getInstance()->getLanguageByCode('de')->languageID, 'Thread language mapped by language code');
     $statement = $db->prepare('SELECT * FROM wcf1_attachment WHERE objectID = ? AND filename = ?');
@@ -336,6 +361,57 @@ try {
     check($statement->fetchSingleColumn() === 'Übernommenes Team', 'Translated group name is not overwritten by its description');
     $statement->execute([$group['groupDescription'], \wcf\system\language\LanguageFactory::getInstance()->getLanguageByCode('de')->languageID]);
     check($statement->fetchSingleColumn() === 'Beschreibung des Teams', 'Group description translation is preserved');
+    // Every embedded reference of post 1 points to its own attachment, each one once.
+    $embeddedFilenames = static function () use ($db, $post1): array {
+        $message = targetRow('forum1_post', 'postID', $post1)['message'];
+        $document = new DOMDocument();
+        @$document->loadHTML('<?xml encoding="UTF-8">' . $message);
+        $names = [];
+        foreach ((new DOMXPath($document))->query('//woltlab-metacode[@data-name="attach"]') as $element) {
+            $attributes = json_decode(base64_decode($element->getAttribute('data-attributes')), true);
+            $row = targetRow('wcf1_attachment', 'attachmentID', (int)($attributes[0] ?? 0));
+            $names[] = ((int)($row['objectID'] ?? 0) === (int)$post1) ? $row['filename'] : 'foreign:' . ($row['filename'] ?? 'missing');
+        }
+        return $names;
+    };
+    // in the order of the message: [attach]1, [attach]3, metacode 4, metacode 1
+    $expectedNames = ['anhang.txt', 'foto.jpg', 'animation.gif', 'anhang.txt'];
+    check(
+        forum\system\importer\PostAttachmentImporter::replaceAttachmentID('[attach]10[/attach] [attach=1,"left"][/attach] [attach]1[/attach]', 1, 70)
+            === '[attach]10[/attach] [attach=70,"left"][/attach] [attach]70[/attach]',
+        'Only the exact attachment ID is replaced'
+    );
+    check($embeddedFilenames() === $expectedNames, 'Embedded attachments of post 1 keep their own reference in order: ' . implode(', ', $embeddedFilenames()));
+    $statement = $db->prepare('SELECT filename, attachmentID FROM wcf1_attachment WHERE objectID IN (?, ?) AND objectTypeID = ?');
+    $statement->execute([$post1, $post2, $attachmentType]);
+    $importedIDs = array_map('intval', $statement->fetchMap('filename', 'attachmentID'));
+    $sourceMax = (int)$pdo->query('SELECT MAX(attachmentID) FROM wcf7_attachment')->fetchColumn();
+    check(($importedIDs['bild.png'] ?? 0) === 2 && ($importedIDs['foto.jpg'] ?? 0) === 3 && ($importedIDs['animation.gif'] ?? 0) === 4, 'Free attachment IDs are kept: ' . json_encode($importedIDs));
+    check(($importedIDs['anhang.txt'] ?? 0) > $sourceMax, 'The colliding attachment gets an ID above all source IDs');
+    $jpegAvatarFile = targetRow('wcf1_user', 'userID', $user2)['avatarFileID'] ?? 0;
+    check((int)$jpegAvatarFile > 0, 'JPEG avatar imported');
+
+    // The Core migrates old attachments to files and converts images to WebP
+    // when these rebuild jobs run; nothing may get lost or point elsewhere.
+    \wcf\data\option\OptionEditor::import(['image_convert_format' => 'webp']);
+    foreach ([\wcf\system\worker\AttachmentRebuildDataWorker::class, \wcf\system\worker\FileRebuildDataWorker::class] as $class) {
+        runWorker($class);
+    }
+    $statement = $db->prepare('SELECT attachmentID, fileID FROM wcf1_attachment WHERE objectID IN (?, ?) AND objectTypeID = ?');
+    $statement->execute([$post1, $post2, $attachmentType]);
+    $afterRebuild = $statement->fetchMap('attachmentID', 'fileID');
+    check(count($afterRebuild) === 4, 'No attachment is lost by the attachment and file rebuild (' . count($afterRebuild) . ' of 4)');
+    check(!in_array(null, $afterRebuild, true), 'Every imported attachment was migrated to a file');
+    foreach ($afterRebuild as $attachmentID => $fileID) {
+        $file = new \wcf\data\file\File($fileID);
+        check($file->fileID && is_file($file->getPathname()), "File of attachment {$attachmentID} exists after the rebuild");
+    }
+    check($embeddedFilenames() === $expectedNames, 'Embedded references still resolve after the rebuild');
+    foreach ([$user1, $user2] as $userID) {
+        $avatarFile = new \wcf\data\file\File((int)targetRow('wcf1_user', 'userID', $userID)['avatarFileID']);
+        check($avatarFile->fileID && is_file($avatarFile->getPathname()), "Avatar of user {$userID} exists after the file rebuild ({$avatarFile->filename})");
+    }
+
     check($pdo->query('CHECKSUM TABLE wcf7_user, wcf7_label, wbb7_board, wbb7_thread, wbb7_post, wcf7_attachment')->fetchAll(PDO::FETCH_ASSOC) === $sourceChecksums, 'Source database is unchanged');
     echo $failures ? count($failures) . " content checks failed.\n" : $checks . " content checks passed.\n";
     $exitCode = $failures ? 1 : 0;

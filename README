@@ -7,7 +7,7 @@ package "com.tinsever.forum". The repository also contains the account
 switcher, a separate plugin ("com.tinsever.wcf.accountSwitcher") that
 works with or without the forum.
 
-Status: beta (Forum 1.0.0 Beta 3, Account Switcher 1.0.0 Beta 1). Expect bugs and do not run it on a
+Status: beta (Forum 1.0.0 Beta 4, Account Switcher 1.0.0 Beta 1). Expect bugs and do not run it on a
 production site without a backup.
 
 This project is not affiliated with or endorsed by WoltLab GmbH.
@@ -127,6 +127,15 @@ containing lib/core.functions.php, attachments/ and images/, including a
 Core subdirectory if the old forum uses one. Keep the source files available
 until attachment and avatar imports have finished.
 
+Images: WoltLab Suite 6.2 converts JPEG and PNG images to WebP by default
+(Configuration > Options > General > System > Images, "Convert images").
+Imported avatars and attachments are converted as soon as the rebuild job
+"Files" runs; nothing is lost and the attachment IDs stay the same. Set the
+option to "Keep format" before importing if you want to keep the original
+formats. GIFs are never converted. Attachment uploads are limited by the
+allowed file extensions of the user groups (user group options > Forum >
+Attachments), check them after importing the groups.
+
 After importing, run these data-rebuild jobs in order: reactions, forum
 posts, forum threads, boards, user forum-post counters, forum search index.
 Check imported content and access permissions before opening the site.
@@ -136,11 +145,14 @@ To build the importer without a WoltLab customer download:
     ./scripts/build-importer.sh
 
 This fetches the official LGPL importer 6.2.7 and builds
-build/packages/com.woltlab.wcf.exporter.tar (local version 6.2.8 dev 2).
+build/packages/com.woltlab.wcf.exporter.tar (local version 6.2.8 dev 3).
 It requires Core 6.2.7 or newer within 6.2. Install or update it through
 the ACP package upload. The included compatibility patch fixes label
 imports, preserves label settings and silent subscriptions, imports
-reaction types and fixes group translations. Forum Beta 2 also fixes translated board names, thread
+reaction types and fixes group translations. It also keeps attachment IDs
+from shifting when the target already has attachments: before the
+attachments are imported, the next free ID is moved above all IDs of the
+old forum, so embedded images keep pointing at the right attachment. Forum Beta 2 also fixes translated board names, thread
 languages, reaction counters and embedded-object registration on rebuild.
 The build also produces WBB4xExporter.class.php for replacing the file
 under the target Core's lib/system/exporter/ when resuming an import.
