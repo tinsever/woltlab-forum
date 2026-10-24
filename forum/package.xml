@@ -7,8 +7,8 @@
 		<packagedescription language="de">Diskussionsforum mit Foren, Themen und Beiträgen für WoltLab Suite.</packagedescription>
 		<isapplication>1</isapplication>
 		<applicationdirectory>forum</applicationdirectory>
-		<version>1.0.0 Beta 1</version>
-		<date>2026-10-23</date>
+		<version>1.0.0 Beta 2</version>
+		<date>2026-10-24</date>
 		<license><![CDATA[LGPL-2.1 <https://opensource.org/licenses/lgpl-license.php>]]></license>
 	</packageinformation>
 

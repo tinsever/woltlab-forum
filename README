@@ -5,7 +5,7 @@ A discussion forum (boards, threads, posts) for WoltLab Suite Core 6.2.
 It is an independent implementation, installed as the application
 package "com.tinsever.forum".
 
-Status: beta (1.0.0 Beta 1). Expect bugs and do not run it on a
+Status: beta (1.0.0 Beta 2). Expect bugs and do not run it on a
 production site without a backup.
 
 This project is not affiliated with or endorsed by WoltLab GmbH.
