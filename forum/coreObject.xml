@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <data xmlns="http://www.woltlab.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.woltlab.com http://www.woltlab.com/XSD/6.0/coreObject.xsd">
-	<import>
-		<coreobject>
-			<objectname>forum\system\account\AccountSwitcherHandler</objectname>
-		</coreobject>
-	</import>
+	<!-- moved to the account switcher package (com.tinsever.wcf.accountSwitcher) in 1.0.0 Beta 3 -->
+	<delete>
+		<coreobject name="forum\system\account\AccountSwitcherHandler" />
+	</delete>
 </data>

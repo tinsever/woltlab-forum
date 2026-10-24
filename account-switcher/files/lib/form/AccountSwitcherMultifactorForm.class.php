@@ -1,8 +1,8 @@
 <?php
 
-namespace forum\form;
+namespace wcf\form;
 
-use forum\system\account\AccountSwitcherHandler;
+use wcf\system\user\LinkedAccountHandler;
 use wcf\data\user\User;
 use wcf\form\AbstractForm;
 use wcf\form\AbstractFormBuilderForm;
@@ -55,11 +55,11 @@ final class AccountSwitcherMultifactorForm extends AbstractFormBuilderForm
     {
         parent::readParameters();
 
-        $handler = AccountSwitcherHandler::getInstance();
+        $handler = LinkedAccountHandler::getInstance();
         $pending = $handler->getPendingAuthentication();
         if ($pending === null || !$handler->isAvailable()) {
             throw new NamedUserException(HtmlString::fromSafeHtml(
-                WCF::getLanguage()->getDynamicVariable('forum.accountSwitcher.multifactor.expired')
+                WCF::getLanguage()->getDynamicVariable('wcf.accountSwitcher.multifactor.expired')
             ));
         }
 
@@ -75,8 +75,8 @@ final class AccountSwitcherMultifactorForm extends AbstractFormBuilderForm
             $handler->clearPendingAuthentication();
 
             throw new NamedUserException(HtmlString::fromSafeHtml(WCF::getLanguage()->getDynamicVariable(
-                'forum.accountSwitcher.' . ($this->link ? 'link' : 'switch') . '.error.' . $error,
-                ['limit' => FORUM_ACCOUNT_SWITCHER_MAX_ACCOUNTS]
+                'wcf.accountSwitcher.' . ($this->link ? 'link' : 'switch') . '.error.' . $error,
+                ['limit' => ACCOUNT_SWITCHER_MAX_ACCOUNTS]
             )));
         }
 
@@ -129,7 +129,7 @@ final class AccountSwitcherMultifactorForm extends AbstractFormBuilderForm
     {
         AbstractForm::saved();
 
-        AccountSwitcherHandler::getInstance()->clearPendingAuthentication();
+        LinkedAccountHandler::getInstance()->clearPendingAuthentication();
         $this->complete();
     }
 
@@ -138,11 +138,11 @@ final class AccountSwitcherMultifactorForm extends AbstractFormBuilderForm
      */
     private function complete(): never
     {
-        $handler = AccountSwitcherHandler::getInstance();
+        $handler = LinkedAccountHandler::getInstance();
         if ($this->link) {
             $handler->link(WCF::getUser(), $this->target);
-            $redirectUrl = LinkHandler::getInstance()->getControllerLink(\forum\page\AccountSwitcherPage::class);
-            $message = WCF::getLanguage()->getDynamicVariable('forum.accountSwitcher.link.success', [
+            $redirectUrl = LinkHandler::getInstance()->getControllerLink(\wcf\page\AccountSwitcherPage::class);
+            $message = WCF::getLanguage()->getDynamicVariable('wcf.accountSwitcher.link.success', [
                 'target' => $this->target,
             ]);
         } else {

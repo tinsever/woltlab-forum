@@ -1,8 +1,8 @@
 <?php
 
-namespace forum\action;
+namespace wcf\action;
 
-use forum\system\account\AccountSwitcherHandler;
+use wcf\system\user\LinkedAccountHandler;
 use Laminas\Diactoros\Response\JsonResponse;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -37,7 +37,7 @@ final class AccountSwitcherLinkDialogAction implements RequestHandlerInterface
     #[\Override]
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
-        $handler = AccountSwitcherHandler::getInstance();
+        $handler = LinkedAccountHandler::getInstance();
         if (!$handler->isAvailable()) {
             throw new PermissionDeniedException();
         }
@@ -77,7 +77,7 @@ final class AccountSwitcherLinkDialogAction implements RequestHandlerInterface
 
         return new JsonResponse([
             'result' => [
-                'message' => WCF::getLanguage()->getDynamicVariable('forum.accountSwitcher.link.success', [
+                'message' => WCF::getLanguage()->getDynamicVariable('wcf.accountSwitcher.link.success', [
                     'target' => $this->target,
                 ]),
             ],
@@ -87,13 +87,13 @@ final class AccountSwitcherLinkDialogAction implements RequestHandlerInterface
     private function getForm(): Psr15DialogForm
     {
         $form = new Psr15DialogForm(
-            'forumAccountSwitcherLink',
-            WCF::getLanguage()->get('forum.accountSwitcher.link')
+            'accountSwitcherLink',
+            WCF::getLanguage()->get('wcf.accountSwitcher.link')
         );
         $form->appendChildren([
             TextFormField::create('username')
                 ->label('wcf.user.usernameOrEmail')
-                ->description('forum.accountSwitcher.link.username.description')
+                ->description('wcf.accountSwitcher.link.username.description')
                 ->required()
                 ->autoFocus()
                 ->autocomplete('off')
@@ -136,7 +136,7 @@ final class AccountSwitcherLinkDialogAction implements RequestHandlerInterface
         ) {
             $passwordField->addValidationError(new FormFieldValidationError(
                 'tooManyFailures',
-                'forum.accountSwitcher.link.error.tooManyFailures'
+                'wcf.accountSwitcher.link.error.tooManyFailures'
             ));
 
             return;
@@ -150,18 +150,18 @@ final class AccountSwitcherLinkDialogAction implements RequestHandlerInterface
             // Do not reveal whether the account exists.
             $passwordField->addValidationError(new FormFieldValidationError(
                 'invalidCredentials',
-                'forum.accountSwitcher.link.error.invalidCredentials'
+                'wcf.accountSwitcher.link.error.invalidCredentials'
             ));
 
             return;
         }
 
-        $error = AccountSwitcherHandler::getInstance()->getLinkError(WCF::getUser(), $user);
+        $error = LinkedAccountHandler::getInstance()->getLinkError(WCF::getUser(), $user);
         if ($error !== null) {
             $usernameField->addValidationError(new FormFieldValidationError(
                 $error,
-                'forum.accountSwitcher.link.error.' . $error,
-                ['limit' => FORUM_ACCOUNT_SWITCHER_MAX_ACCOUNTS]
+                'wcf.accountSwitcher.link.error.' . $error,
+                ['limit' => ACCOUNT_SWITCHER_MAX_ACCOUNTS]
             ));
 
             return;

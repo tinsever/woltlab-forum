@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data xmlns="http://www.woltlab.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.woltlab.com http://www.woltlab.com/XSD/6.0/userMenu.xsd">
+	<import>
+		<usermenuitem name="wcf.user.menu.profile.linkedAccounts">
+			<controller>wcf\page\AccountSwitcherPage</controller>
+			<parent>wcf.user.menu.profile</parent>
+			<options>module_account_switcher</options>
+			<permissions>user.profile.canSwitchAccounts</permissions>
+			<showorder>3</showorder>
+		</usermenuitem>
+	</import>
+</data>

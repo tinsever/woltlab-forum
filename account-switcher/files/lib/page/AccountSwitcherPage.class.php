@@ -1,8 +1,8 @@
 <?php
 
-namespace forum\page;
+namespace wcf\page;
 
-use forum\system\account\AccountSwitcherHandler;
+use wcf\system\user\LinkedAccountHandler;
 use wcf\data\user\UserProfile;
 use wcf\page\AbstractPage;
 use wcf\system\cache\runtime\UserProfileRuntimeCache;
@@ -31,7 +31,7 @@ final class AccountSwitcherPage extends AbstractPage
     /**
      * @inheritDoc
      */
-    public $neededModules = ['MODULE_FORUM_ACCOUNT_SWITCHER'];
+    public $neededModules = ['MODULE_ACCOUNT_SWITCHER'];
 
     /**
      * @var UserProfile[]
@@ -54,7 +54,7 @@ final class AccountSwitcherPage extends AbstractPage
         parent::readParameters();
 
         // Linking an account requires the password of the active account.
-        if (isset($_GET['link']) && AccountSwitcherHandler::getInstance()->isAvailable()) {
+        if (isset($_GET['link']) && LinkedAccountHandler::getInstance()->isAvailable()) {
             $this->requestReauthentication($this->getLinkDialogUrl());
         }
     }
@@ -64,7 +64,7 @@ final class AccountSwitcherPage extends AbstractPage
     {
         parent::readData();
 
-        $handler = AccountSwitcherHandler::getInstance();
+        $handler = LinkedAccountHandler::getInstance();
         $userID = WCF::getUser()->userID;
 
         $this->accounts = $handler->getLinkedAccounts($userID);
@@ -78,8 +78,8 @@ final class AccountSwitcherPage extends AbstractPage
     {
         parent::assignVariables();
 
-        $handler = AccountSwitcherHandler::getInstance();
-        $limit = FORUM_ACCOUNT_SWITCHER_MAX_ACCOUNTS;
+        $handler = LinkedAccountHandler::getInstance();
+        $limit = ACCOUNT_SWITCHER_MAX_ACCOUNTS;
         $isAvailable = $handler->isAvailable();
 
         WCF::getTPL()->assign([
@@ -108,7 +108,7 @@ final class AccountSwitcherPage extends AbstractPage
     #[\Override]
     public function show()
     {
-        UserMenu::getInstance()->setActiveMenuItem('wcf.user.menu.profile.accountSwitcher');
+        UserMenu::getInstance()->setActiveMenuItem('wcf.user.menu.profile.linkedAccounts');
 
         parent::show();
     }

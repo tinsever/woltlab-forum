@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<language xmlns="http://www.woltlab.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.woltlab.com http://www.woltlab.com/XSD/6.0/language.xsd" languagecode="de">
+	<category name="wcf.accountSwitcher">
+		<item name="wcf.accountSwitcher.active"><![CDATA[Aktueller Account]]></item>
+		<item name="wcf.accountSwitcher.banned"><![CDATA[Gesperrt]]></item>
+		<item name="wcf.accountSwitcher.description"><![CDATA[Mit verknüpften Accounts können Sie zwischen Ihren Accounts wechseln, ohne sich erneut anzumelden.]]></item>
+		<item name="wcf.accountSwitcher.link"><![CDATA[Account verknüpfen]]></item>
+		<item name="wcf.accountSwitcher.link.error.alreadyLinked"><![CDATA[Dieser Account ist bereits verknüpft.]]></item>
+		<item name="wcf.accountSwitcher.link.error.banned"><![CDATA[Gesperrte Accounts können nicht verknüpft werden.]]></item>
+		<item name="wcf.accountSwitcher.link.error.invalidCredentials"><![CDATA[Der Benutzername oder das Kennwort ist falsch.]]></item>
+		<item name="wcf.accountSwitcher.link.error.limit"><![CDATA[Es können höchstens {#$limit} Accounts miteinander verknüpft werden.]]></item>
+		<item name="wcf.accountSwitcher.link.error.notPermitted"><![CDATA[Dieser Account darf den Account-Wechsler nicht verwenden.]]></item>
+		<item name="wcf.accountSwitcher.link.error.self"><![CDATA[Sie können einen Account nicht mit sich selbst verknüpfen.]]></item>
+		<item name="wcf.accountSwitcher.link.error.tooManyFailures"><![CDATA[Für diesen Account gab es zu viele fehlgeschlagene Versuche, bitte versuchen Sie es später erneut.]]></item>
+		<item name="wcf.accountSwitcher.link.success"><![CDATA[Der Account „{$target->username}“ wurde verknüpft.]]></item>
+		<item name="wcf.accountSwitcher.link.username.description"><![CDATA[Benutzername oder E-Mail-Adresse des Accounts, den Sie mit diesem Account verknüpfen möchten.]]></item>
+		<item name="wcf.accountSwitcher.linkedSince"><![CDATA[Verknüpft: {time time=$time}]]></item>
+		<item name="wcf.accountSwitcher.manage"><![CDATA[Verknüpfte Accounts verwalten]]></item>
+		<item name="wcf.accountSwitcher.multifactor.description"><![CDATA[Bestätigen Sie den Wechsel zu diesem Account mit dessen Mehrfaktor-Authentifizierung. Bis dahin bleiben Sie mit Ihrem aktuellen Account angemeldet.]]></item>
+		<item name="wcf.accountSwitcher.multifactor.description.link"><![CDATA[Bestätigen Sie die Verknüpfung mit diesem Account mit dessen Mehrfaktor-Authentifizierung.]]></item>
+		<item name="wcf.accountSwitcher.multifactor.expired"><![CDATA[Die Bestätigung ist abgelaufen, bitte versuchen Sie es erneut.]]></item>
+		<item name="wcf.accountSwitcher.multifactorRequired"><![CDATA[Erfordert Mehrfaktor-Authentifizierung]]></item>
+		<item name="wcf.accountSwitcher.noAccounts"><![CDATA[Sie haben noch keine weiteren Accounts verknüpft.]]></item>
+		<item name="wcf.accountSwitcher.notAvailable"><![CDATA[Sie dürfen den Account-Wechsler nicht verwenden, können bestehende Verknüpfungen aber weiterhin entfernen.]]></item>
+		<item name="wcf.accountSwitcher.search.noResults"><![CDATA[Keine Accounts gefunden.]]></item>
+		<item name="wcf.accountSwitcher.search.placeholder"><![CDATA[Name eingeben]]></item>
+		<item name="wcf.accountSwitcher.switch"><![CDATA[Wechseln]]></item>
+		<item name="wcf.accountSwitcher.switch.error.banned"><![CDATA[Dieser Account ist gesperrt.]]></item>
+		<item name="wcf.accountSwitcher.switch.error.notLinked"><![CDATA[Dieser Account ist nicht mit Ihrem Account verknüpft.]]></item>
+		<item name="wcf.accountSwitcher.title"><![CDATA[Account wechseln]]></item>
+		<item name="wcf.accountSwitcher.unlink"><![CDATA[Verknüpfung entfernen]]></item>
+		<item name="wcf.accountSwitcher.unlink.confirm"><![CDATA[Möchten Sie „{$username}“ wirklich aus Ihren verknüpften Accounts entfernen?]]></item>
+		<item name="wcf.accountSwitcher.unlink.self"><![CDATA[Diesen Account entfernen]]></item>
+		<item name="wcf.accountSwitcher.unlink.self.confirm"><![CDATA[Möchten Sie diesen Account wirklich aus Ihren verknüpften Accounts entfernen? Die übrigen Accounts bleiben miteinander verknüpft.]]></item>
+		<item name="wcf.accountSwitcher.unreadConversations"><![CDATA[{#$count} ungelesene Konversation{if $count != 1}en{/if}]]></item>
+		<item name="wcf.accountSwitcher.unreadNotifications"><![CDATA[{#$count} ungelesene Benachrichtigung{if $count != 1}en{/if}]]></item>
+	</category>
+	<category name="wcf.acp.group">
+		<item name="wcf.acp.group.option.user.profile.canSwitchAccounts"><![CDATA[Kann den Account-Wechsler verwenden]]></item>
+		<item name="wcf.acp.group.option.user.profile.canSwitchAccounts.description"><![CDATA[Erlaubt das Verknüpfen von Accounts und das Wechseln zwischen ihnen. Beide Accounts benötigen diese Berechtigung, um verknüpft zu werden.]]></item>
+	</category>
+	<category name="wcf.acp.option">
+		<item name="wcf.acp.option.account_switcher_enable_search"><![CDATA[Namenssuche aktivieren]]></item>
+		<item name="wcf.acp.option.account_switcher_enable_search.description"><![CDATA[Zeigt im Account-Wechsler ein Suchfeld über den verknüpften Accounts an.]]></item>
+		<item name="wcf.acp.option.account_switcher_max_accounts"><![CDATA[Maximale Anzahl verknüpfter Accounts]]></item>
+		<item name="wcf.acp.option.account_switcher_max_accounts.description"><![CDATA[Maximale Anzahl an Accounts, die miteinander verknüpft werden können, <kbd>0</kbd> hebt die Begrenzung auf.]]></item>
+		<item name="wcf.acp.option.category.user.accountSwitcher"><![CDATA[Account-Wechsler]]></item>
+		<item name="wcf.acp.option.module_account_switcher"><![CDATA[Account-Wechsler]]></item>
+		<item name="wcf.acp.option.module_account_switcher.description"><![CDATA[Benutzer können ihre Accounts verknüpfen und zwischen ihnen wechseln, ohne sich erneut anzumelden.]]></item>
+	</category>
+	<category name="wcf.user">
+		<item name="wcf.user.menu.profile.linkedAccounts"><![CDATA[Verknüpfte Accounts]]></item>
+	</category>
+</language>

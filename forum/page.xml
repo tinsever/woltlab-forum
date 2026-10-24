@@ -179,35 +179,11 @@
 			<requireObjectID>1</requireObjectID>
 			<excludeFromLandingPage>1</excludeFromLandingPage>
 		</page>
-		<page identifier="com.tinsever.forum.AccountSwitcher">
-			<pageType>system</pageType>
-			<controller>forum\page\AccountSwitcherPage</controller>
-			<name language="de">Verknüpfte Accounts</name>
-			<name language="en">Linked Accounts</name>
-			<hasFixedParent>1</hasFixedParent>
-			<parent>com.woltlab.wcf.AccountManagement</parent>
-			<excludeFromLandingPage>1</excludeFromLandingPage>
-			<options>module_forum_account_switcher</options>
-			<content language="en">
-				<title>Linked Accounts</title>
-			</content>
-			<content language="de">
-				<title>Verknüpfte Accounts</title>
-			</content>
-		</page>
-		<page identifier="com.tinsever.forum.AccountSwitcherMultifactor">
-			<pageType>system</pageType>
-			<controller>forum\form\AccountSwitcherMultifactorForm</controller>
-			<name language="de">Account-Wechsel bestätigen</name>
-			<name language="en">Confirm Account Switch</name>
-			<hasFixedParent>1</hasFixedParent>
-			<parent>com.tinsever.forum.AccountSwitcher</parent>
-			<excludeFromLandingPage>1</excludeFromLandingPage>
-			<options>module_forum_account_switcher</options>
-		</page>
 	</import>
 
 	<delete>
 		<page identifier="com.tinsever.forum.PostAdd" />
+		<page identifier="com.tinsever.forum.AccountSwitcherMultifactor" />
+		<page identifier="com.tinsever.forum.AccountSwitcher" />
 	</delete>
 </data>

@@ -44,9 +44,6 @@ return static function (): void {
     $eventHandler->register(
         \wcf\event\endpoint\ControllerCollecting::class,
         static function (\wcf\event\endpoint\ControllerCollecting $event) {
-            $event->register(new \forum\system\endpoint\controller\forum\accounts\GetAccountSwitcher());
-            $event->register(new \forum\system\endpoint\controller\forum\accounts\SwitchAccount());
-            $event->register(new \forum\system\endpoint\controller\forum\accounts\UnlinkAccount());
             $event->register(new \forum\system\endpoint\controller\forum\boards\MarkAllBoardsAsRead());
             $event->register(new \forum\system\endpoint\controller\forum\boards\MarkBoardAsRead());
             $event->register(new \forum\system\endpoint\controller\forum\boards\SetBoardCategoryCollapsed());

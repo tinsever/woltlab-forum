@@ -3,9 +3,11 @@ Forum for WoltLab Suite
 
 A discussion forum (boards, threads, posts) for WoltLab Suite Core 6.2.
 It is an independent implementation, installed as the application
-package "com.tinsever.forum".
+package "com.tinsever.forum". The repository also contains the account
+switcher, a separate plugin ("com.tinsever.wcf.accountSwitcher") that
+works with or without the forum.
 
-Status: beta (1.0.0 Beta 2). Expect bugs and do not run it on a
+Status: beta (Forum 1.0.0 Beta 3, Account Switcher 1.0.0 Beta 1). Expect bugs and do not run it on a
 production site without a backup.
 
 This project is not affiliated with or endorsed by WoltLab GmbH.
@@ -29,11 +31,26 @@ Features
   * Boxes: thread list, hot threads, board list, forum statistics
   * Search, sitemaps, RSS feeds of threads and RSS feed import
   * Article discussions in forum threads
-  * Account switcher for linked user accounts
   * Optional list view for the members list, with sortable columns
   * Data importers compatible with exporters written for
     WoltLab Burning Board (com.woltlab.wbb.*)
   * English and German translations
+
+
+Account switcher
+----------------
+
+Users link their accounts and switch between them from the user panel
+without logging in again (linking A with B and B with C lets A reach C).
+Accounts with multi-factor authentication ask for it before the switch.
+Settings: Configuration > Options > Users > Account Switcher, permission
+"Can switch between linked accounts" in the user group options.
+
+Up to Forum 1.0.0 Beta 2 the account switcher was part of the forum.
+Forum Beta 3 removes it; install com.tinsever.wcf.accountSwitcher to keep
+it. The plugin takes over the existing links on installation, in either
+order. Its settings and group permissions are taken over as well if the
+plugin is installed before the forum is updated.
 
 
 Requirements
@@ -47,16 +64,31 @@ Requirements
 Installation
 ------------
 
-1. Download com.tinsever.forum.tar from
-   https://codeberg.org/tinsever/woltlab-forum/releases
-   or build it yourself (see "Building" below).
+Through the package server (recommended, updates then show up in the
+ACP):
+
+1. In the ACP, go to Configuration > Packages > Package Servers and add
+   https://woltlab-pkgs.tin.codes/
+2. Search for "Forum" or "Account Switcher" under Install Package.
+
+Or by upload:
+
+1. Download com.tinsever.forum.tar (and com.tinsever.wcf.accountSwitcher.tar)
+   from https://codeberg.org/tinsever/woltlab-forum/releases
+   or build them yourself (see "Building" below).
 2. In the ACP, go to Configuration > Packages > Install Package and
    upload the archive.
-3. Create your boards under Forum > Boards.
 
-Updating works the same way: upload the newer archive and WoltLab
-Suite runs the update. All 1.0.0 Alpha and Beta versions can update to
-the latest release.
+Then create your boards under Forum > Boards.
+
+Updating works the same way: with the package server WoltLab Suite lists
+the update, otherwise upload the newer archive. All 1.0.0 Alpha and Beta
+versions can update to the latest release.
+
+The package server is generated from the Codeberg releases every ten
+minutes. It does not serve the patched importer (com.woltlab.*), because
+WoltLab Suite ignores such packages from other servers; download it from
+the release instead.
 
 
 Building
@@ -64,15 +96,18 @@ Building
 
     ./scripts/build-package.sh
 
-This writes build/packages/com.tinsever.forum.tar.
+This writes build/packages/com.tinsever.forum.tar and
+build/packages/com.tinsever.wcf.accountSwitcher.tar.
 
 Codeberg CI (.forgejo/workflows/ci.yml) lints the code on PHP 8.1 and
 8.4, checks the generated files and builds the package on every push;
-the archive is attached to each run as an artifact.
+the archives are attached to each run as an artifact.
 
-To publish a release, bump <version> in forum/package.xml and push a
-matching tag: "1.0.0 Beta 2" becomes v1.0.0-beta.2, "1.0.0" becomes
-v1.0.0. CI then creates the release with the package attached. If the
+To publish a release, bump <version> in forum/package.xml (and in
+account-switcher/package.xml if it changed) and push a tag matching the
+forum version: "1.0.0 Beta 2" becomes v1.0.0-beta.2, "1.0.0" becomes
+v1.0.0. CI then creates the release with the forum, the account switcher
+and the importer attached. If the
 built-in token cannot create releases, add a repository secret
 RELEASE_TOKEN with write:repository scope.
 
@@ -80,7 +115,7 @@ RELEASE_TOKEN with write:repository scope.
 Importing an existing forum
 ---------------------------
 
-Use Forum 1.0.0 Beta 2 together with the compatibility importer below.
+Use Forum 1.0.0 Beta 2 or newer together with the compatibility importer below.
 Back up both systems before importing. After a failed attempt, restore the
 target to its pre-import state before restarting the entire import; boards
 and posts already imported are not automatically deduplicated.

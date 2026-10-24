@@ -2,5 +2,11 @@
 <data xmlns="http://www.woltlab.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.woltlab.com http://www.woltlab.com/XSD/6.0/templateDelete.xsd">
 	<delete>
 		<template application="forum">postAdd</template>
+		<template application="forum">__accountSwitcherAccountBadges</template>
+		<template application="forum">__accountSwitcherListItem</template>
+		<template application="forum">__userPanelAccountSwitcher</template>
+		<template application="forum">accountSwitcher</template>
+		<template application="forum">accountSwitcherMenu</template>
+		<template application="forum">accountSwitcherMultifactor</template>
 	</delete>
 </data>

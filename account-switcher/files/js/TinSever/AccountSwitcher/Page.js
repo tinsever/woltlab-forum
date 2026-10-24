@@ -13,14 +13,14 @@ define(["require", "exports", "WoltLabSuite/Core/Ajax/Backend", "WoltLabSuite/Co
      */
     function setupUsernameSuggestions() {
         const observer = new MutationObserver(() => {
-            const input = document.getElementById("forumAccountSwitcherLink_username");
-            if (input === null || input.dataset.forumSuggestions) {
+            const input = document.getElementById("accountSwitcherLink_username");
+            if (input === null || input.dataset.accountSwitcherSuggestions) {
                 return;
             }
-            input.dataset.forumSuggestions = "true";
+            input.dataset.accountSwitcherSuggestions = "true";
             observer.disconnect();
 
-            const excludedSearchValues = Array.from(document.querySelectorAll(".forumAccountSwitcherList .username")).map((username) => username.textContent.trim());
+            const excludedSearchValues = Array.from(document.querySelectorAll(".accountSwitcherList .username")).map((username) => username.textContent.trim());
             new Input_1(input, { excludedSearchValues });
         });
         observer.observe(document.body, { childList: true, subtree: true });
@@ -53,7 +53,7 @@ define(["require", "exports", "WoltLabSuite/Core/Ajax/Backend", "WoltLabSuite/Co
     async function switchTo(button) {
         button.disabled = true;
         try {
-            const response = await (0, Backend_1.prepareRequest)(`${window.WSC_RPC_API_URL}forum/account-switcher/${button.dataset.userId}/switch`)
+            const response = await (0, Backend_1.prepareRequest)(`${window.WSC_RPC_API_URL}account-switcher/accounts/${button.dataset.userId}/switch`)
                 .post({ returnUrl: window.location.href.split("#")[0] })
                 .fetchAsJson();
 
@@ -70,7 +70,7 @@ define(["require", "exports", "WoltLabSuite/Core/Ajax/Backend", "WoltLabSuite/Co
             return;
         }
 
-        await (0, Backend_1.prepareRequest)(`${window.WSC_RPC_API_URL}forum/account-switcher/${button.dataset.userId}/unlink`)
+        await (0, Backend_1.prepareRequest)(`${window.WSC_RPC_API_URL}account-switcher/accounts/${button.dataset.userId}/unlink`)
             .post()
             .fetchAsJson();
 
@@ -78,13 +78,13 @@ define(["require", "exports", "WoltLabSuite/Core/Ajax/Backend", "WoltLabSuite/Co
     }
 
     function setup(openDialog) {
-        const linkButton = document.querySelector(".forumAccountSwitcherLinkButton");
+        const linkButton = document.querySelector(".accountSwitcherLinkButton");
         linkButton?.addEventListener("click", () => void openLinkDialog(linkButton));
 
-        document.querySelectorAll(".forumAccountSwitcherSwitchButton").forEach((button) => {
+        document.querySelectorAll(".accountSwitcherSwitchButton").forEach((button) => {
             button.addEventListener("click", () => void switchTo(button));
         });
-        document.querySelectorAll(".forumAccountSwitcherUnlinkButton").forEach((button) => {
+        document.querySelectorAll(".accountSwitcherUnlinkButton").forEach((button) => {
             button.addEventListener("click", () => void unlink(button));
         });
 

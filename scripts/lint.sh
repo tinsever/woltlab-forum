@@ -7,10 +7,10 @@ PHP="${PHP_BIN:-php}"
 cd "$ROOT"
 
 echo "PHP $("$PHP" -r 'echo PHP_VERSION;')"
-find forum scripts -name '*.php' -print0 \
+find forum account-switcher scripts -name '*.php' -print0 \
 	| xargs -0 -n 1 -P 8 "$PHP" -n -d display_errors=stderr -l >/dev/null
 
-find forum -name '*.xml' -print0 | xargs -0 "$PHP" -r '
+find forum account-switcher -name '*.xml' -print0 | xargs -0 "$PHP" -r '
 	libxml_use_internal_errors(true);
 	$failed = false;
 	foreach (array_slice($argv, 1) as $file) {

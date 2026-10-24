@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data xmlns="http://www.woltlab.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.woltlab.com http://www.woltlab.com/XSD/6.0/page.xsd">
+	<import>
+		<page identifier="com.tinsever.wcf.accountSwitcher.AccountSwitcher">
+			<pageType>system</pageType>
+			<controller>wcf\page\AccountSwitcherPage</controller>
+			<name language="de">Verknüpfte Accounts</name>
+			<name language="en">Linked Accounts</name>
+			<hasFixedParent>1</hasFixedParent>
+			<parent>com.woltlab.wcf.AccountManagement</parent>
+			<excludeFromLandingPage>1</excludeFromLandingPage>
+			<options>module_account_switcher</options>
+			<content language="en">
+				<title>Linked Accounts</title>
+			</content>
+			<content language="de">
+				<title>Verknüpfte Accounts</title>
+			</content>
+		</page>
+		<page identifier="com.tinsever.wcf.accountSwitcher.AccountSwitcherMultifactor">
+			<pageType>system</pageType>
+			<controller>wcf\form\AccountSwitcherMultifactorForm</controller>
+			<name language="de">Account-Wechsel bestätigen</name>
+			<name language="en">Confirm Account Switch</name>
+			<hasFixedParent>1</hasFixedParent>
+			<parent>com.tinsever.wcf.accountSwitcher.AccountSwitcher</parent>
+			<excludeFromLandingPage>1</excludeFromLandingPage>
+			<options>module_account_switcher</options>
+		</page>
+	</import>
+</data>

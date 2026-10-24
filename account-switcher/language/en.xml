@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<language xmlns="http://www.woltlab.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.woltlab.com http://www.woltlab.com/XSD/6.0/language.xsd" languagecode="en">
+	<category name="wcf.accountSwitcher">
+		<item name="wcf.accountSwitcher.active"><![CDATA[Current Account]]></item>
+		<item name="wcf.accountSwitcher.banned"><![CDATA[Banned]]></item>
+		<item name="wcf.accountSwitcher.description"><![CDATA[Linked accounts let you switch between your accounts without logging in again.]]></item>
+		<item name="wcf.accountSwitcher.link"><![CDATA[Link Account]]></item>
+		<item name="wcf.accountSwitcher.link.error.alreadyLinked"><![CDATA[This account is already linked.]]></item>
+		<item name="wcf.accountSwitcher.link.error.banned"><![CDATA[Banned accounts cannot be linked.]]></item>
+		<item name="wcf.accountSwitcher.link.error.invalidCredentials"><![CDATA[The username or password is incorrect.]]></item>
+		<item name="wcf.accountSwitcher.link.error.limit"><![CDATA[At most {#$limit} accounts can be linked with each other.]]></item>
+		<item name="wcf.accountSwitcher.link.error.notPermitted"><![CDATA[This account is not allowed to use the account switcher.]]></item>
+		<item name="wcf.accountSwitcher.link.error.self"><![CDATA[You cannot link an account with itself.]]></item>
+		<item name="wcf.accountSwitcher.link.error.tooManyFailures"><![CDATA[There were too many failed attempts for this account, please try again later.]]></item>
+		<item name="wcf.accountSwitcher.link.success"><![CDATA[The account “{$target->username}” has been linked.]]></item>
+		<item name="wcf.accountSwitcher.link.username.description"><![CDATA[Username or email address of the account you want to link with this account.]]></item>
+		<item name="wcf.accountSwitcher.linkedSince"><![CDATA[Linked: {time time=$time}]]></item>
+		<item name="wcf.accountSwitcher.manage"><![CDATA[Manage Linked Accounts]]></item>
+		<item name="wcf.accountSwitcher.multifactor.description"><![CDATA[Confirm the switch to this account with its multi-factor authentication. You stay logged in with your current account until then.]]></item>
+		<item name="wcf.accountSwitcher.multifactor.description.link"><![CDATA[Confirm the link with this account with its multi-factor authentication.]]></item>
+		<item name="wcf.accountSwitcher.multifactor.expired"><![CDATA[The confirmation has expired, please try again.]]></item>
+		<item name="wcf.accountSwitcher.multifactorRequired"><![CDATA[Requires multi-factor authentication]]></item>
+		<item name="wcf.accountSwitcher.noAccounts"><![CDATA[You have not linked any other accounts yet.]]></item>
+		<item name="wcf.accountSwitcher.notAvailable"><![CDATA[You are not allowed to use the account switcher, but you can still remove existing links.]]></item>
+		<item name="wcf.accountSwitcher.search.noResults"><![CDATA[No accounts found.]]></item>
+		<item name="wcf.accountSwitcher.search.placeholder"><![CDATA[Enter name]]></item>
+		<item name="wcf.accountSwitcher.switch"><![CDATA[Switch]]></item>
+		<item name="wcf.accountSwitcher.switch.error.banned"><![CDATA[This account is banned.]]></item>
+		<item name="wcf.accountSwitcher.switch.error.notLinked"><![CDATA[This account is not linked with your account.]]></item>
+		<item name="wcf.accountSwitcher.title"><![CDATA[Switch Account]]></item>
+		<item name="wcf.accountSwitcher.unlink"><![CDATA[Remove Link]]></item>
+		<item name="wcf.accountSwitcher.unlink.confirm"><![CDATA[Do you really want to remove “{$username}” from your linked accounts?]]></item>
+		<item name="wcf.accountSwitcher.unlink.self"><![CDATA[Remove This Account]]></item>
+		<item name="wcf.accountSwitcher.unlink.self.confirm"><![CDATA[Do you really want to remove this account from your linked accounts? The other accounts stay linked with each other.]]></item>
+		<item name="wcf.accountSwitcher.unreadConversations"><![CDATA[{#$count} unread conversation{if $count != 1}s{/if}]]></item>
+		<item name="wcf.accountSwitcher.unreadNotifications"><![CDATA[{#$count} unread notification{if $count != 1}s{/if}]]></item>
+	</category>
+	<category name="wcf.acp.group">
+		<item name="wcf.acp.group.option.user.profile.canSwitchAccounts"><![CDATA[Can use the account switcher]]></item>
+		<item name="wcf.acp.group.option.user.profile.canSwitchAccounts.description"><![CDATA[Allows linking accounts and switching between them. Both accounts need this permission to be linked.]]></item>
+	</category>
+	<category name="wcf.acp.option">
+		<item name="wcf.acp.option.account_switcher_enable_search"><![CDATA[Enable name search]]></item>
+		<item name="wcf.acp.option.account_switcher_enable_search.description"><![CDATA[Shows a search field above the linked accounts in the account switcher.]]></item>
+		<item name="wcf.acp.option.account_switcher_max_accounts"><![CDATA[Maximum linked accounts]]></item>
+		<item name="wcf.acp.option.account_switcher_max_accounts.description"><![CDATA[Maximum number of accounts that can be linked with each other, <kbd>0</kbd> removes the limit.]]></item>
+		<item name="wcf.acp.option.category.user.accountSwitcher"><![CDATA[Account Switcher]]></item>
+		<item name="wcf.acp.option.module_account_switcher"><![CDATA[Account Switcher]]></item>
+		<item name="wcf.acp.option.module_account_switcher.description"><![CDATA[Users can link their accounts and switch between them without logging in again.]]></item>
+	</category>
+	<category name="wcf.user">
+		<item name="wcf.user.menu.profile.linkedAccounts"><![CDATA[Linked Accounts]]></item>
+	</category>
+</language>

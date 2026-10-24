@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package name="com.tinsever.wcf.accountSwitcher" xmlns="http://www.woltlab.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.woltlab.com http://www.woltlab.com/XSD/6.0/package.xsd">
+	<packageinformation>
+		<packagename>Account Switcher</packagename>
+		<packagename language="de">Account-Wechsler</packagename>
+		<packagedescription>Link user accounts and switch between them without logging in again.</packagedescription>
+		<packagedescription language="de">Verknüpft Benutzerkonten und wechselt zwischen ihnen, ohne sich neu anzumelden.</packagedescription>
+		<version>1.0.0 Beta 1</version>
+		<date>2026-10-24</date>
+		<license><![CDATA[LGPL-2.1 <https://opensource.org/licenses/lgpl-license.php>]]></license>
+	</packageinformation>
+
+	<authorinformation>
+		<author>tinsever</author>
+		<authorurl>https://codeberg.org/tinsever/woltlab-forum</authorurl>
+	</authorinformation>
+
+	<requiredpackages>
+		<requiredpackage minversion="6.2.0">com.woltlab.wcf</requiredpackage>
+	</requiredpackages>
+
+	<excludedpackages>
+		<excludedpackage version="6.3.0 Alpha 1">com.woltlab.wcf</excludedpackage>
+	</excludedpackages>
+
+	<instructions type="install">
+		<instruction type="file">files.tar</instruction>
+		<instruction type="database">acp/database/install_com.tinsever.wcf.accountSwitcher.php</instruction>
+		<instruction type="template">templates.tar</instruction>
+		<instruction type="language" />
+		<instruction type="coreObject" />
+		<instruction type="option" />
+		<instruction type="userGroupOption" />
+		<instruction type="page" />
+		<instruction type="userMenu" />
+		<instruction type="templateListener" />
+		<instruction type="script">acp/install_com.tinsever.wcf.accountSwitcher.php</instruction>
+	</instructions>
+
+	<instructions type="update" fromversion="1.0.0 *">
+		<instruction type="file">files.tar</instruction>
+		<instruction type="database">acp/database/install_com.tinsever.wcf.accountSwitcher.php</instruction>
+		<instruction type="template">templates.tar</instruction>
+		<instruction type="language" />
+		<instruction type="coreObject" />
+		<instruction type="option" />
+		<instruction type="userGroupOption" />
+		<instruction type="page" />
+		<instruction type="userMenu" />
+		<instruction type="templateListener" />
+	</instructions>
+</package>

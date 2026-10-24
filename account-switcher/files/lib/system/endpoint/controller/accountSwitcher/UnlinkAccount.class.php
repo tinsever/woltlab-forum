@@ -1,8 +1,8 @@
 <?php
 
-namespace forum\system\endpoint\controller\forum\accounts;
+namespace wcf\system\endpoint\controller\accountSwitcher;
 
-use forum\system\account\AccountSwitcherHandler;
+use wcf\system\user\LinkedAccountHandler;
 use Laminas\Diactoros\Response\JsonResponse;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -19,18 +19,18 @@ use wcf\system\WCF;
  *
  * @license GNU Lesser General Public License <http://opensource.org/licenses/lgpl-license.php>
  */
-#[PostRequest('/forum/account-switcher/{id:\d+}/unlink')]
+#[PostRequest('/account-switcher/accounts/{id:\d+}/unlink')]
 final class UnlinkAccount implements IController
 {
     #[\Override]
     public function __invoke(ServerRequestInterface $request, array $variables): ResponseInterface
     {
         $userID = WCF::getUser()->userID;
-        if (!MODULE_FORUM_ACCOUNT_SWITCHER || !$userID) {
+        if (!MODULE_ACCOUNT_SWITCHER || !$userID) {
             throw new PermissionDeniedException();
         }
 
-        $handler = AccountSwitcherHandler::getInstance();
+        $handler = LinkedAccountHandler::getInstance();
         $targetID = \intval($variables['id']);
         if ($targetID !== $userID && !$handler->isLinked($userID, $targetID)) {
             throw new IllegalLinkException();

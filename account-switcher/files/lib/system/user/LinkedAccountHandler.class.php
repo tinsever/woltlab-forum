@@ -1,8 +1,8 @@
 <?php
 
-namespace forum\system\account;
+namespace wcf\system\user;
 
-use forum\form\AccountSwitcherMultifactorForm;
+use wcf\form\AccountSwitcherMultifactorForm;
 use wcf\data\user\User;
 use wcf\data\user\UserProfile;
 use wcf\event\user\authentication\UserLoggedIn;
@@ -26,13 +26,13 @@ use wcf\util\HtmlString;
  *
  * @license GNU Lesser General Public License <http://opensource.org/licenses/lgpl-license.php>
  */
-final class AccountSwitcherHandler extends SingletonFactory
+final class LinkedAccountHandler extends SingletonFactory
 {
     /**
      * Session variable holding a switch or link that waits for the multi-factor
      * authentication of the other account.
      */
-    private const PENDING_AUTHENTICATION_KEY = 'forumAccountSwitcherPendingAuthentication';
+    private const PENDING_AUTHENTICATION_KEY = 'accountSwitcherPendingAuthentication';
 
     /**
      * Seconds a pending multi-factor authentication stays valid.
@@ -49,9 +49,9 @@ final class AccountSwitcherHandler extends SingletonFactory
      */
     public function isAvailable(): bool
     {
-        return MODULE_FORUM_ACCOUNT_SWITCHER
+        return MODULE_ACCOUNT_SWITCHER
             && WCF::getUser()->userID
-            && WCF::getSession()->getPermission('user.profile.canUseAccountSwitcher');
+            && WCF::getSession()->getPermission('user.profile.canSwitchAccounts');
     }
 
     /**
@@ -64,8 +64,8 @@ final class AccountSwitcherHandler extends SingletonFactory
     {
         if (!isset($this->groupMembers[$userID])) {
             $sql = "SELECT      other.userID
-                    FROM        forum1_account_group_member self
-                    INNER JOIN  forum1_account_group_member other
+                    FROM        wcf1_account_switcher_member self
+                    INNER JOIN  wcf1_account_switcher_member other
                     ON          other.groupID = self.groupID
                     WHERE       self.userID = ?";
             $statement = WCF::getDB()->prepare($sql);
@@ -130,7 +130,7 @@ final class AccountSwitcherHandler extends SingletonFactory
         $conditions = new PreparedStatementConditionBuilder();
         $conditions->add('userID IN (?)', [$userIDs]);
         $sql = "SELECT  userID, time
-                FROM    forum1_account_group_member
+                FROM    wcf1_account_switcher_member
                 {$conditions}";
         $statement = WCF::getDB()->prepare($sql);
         $statement->execute($conditions->getParameters());
@@ -141,7 +141,7 @@ final class AccountSwitcherHandler extends SingletonFactory
     /**
      * Returns the reason why the given accounts cannot be linked or `null` if
      * they can. The reason is the suffix of the phrase
-     * `forum.accountSwitcher.link.error.*`.
+     * `wcf.accountSwitcher.link.error.*`.
      */
     public function getLinkError(User $user, User $target): ?string
     {
@@ -154,11 +154,11 @@ final class AccountSwitcherHandler extends SingletonFactory
         if ($target->banned) {
             return 'banned';
         }
-        if (!(new UserProfile($target))->getPermission('user.profile.canUseAccountSwitcher')) {
+        if (!(new UserProfile($target))->getPermission('user.profile.canSwitchAccounts')) {
             return 'notPermitted';
         }
 
-        $limit = FORUM_ACCOUNT_SWITCHER_MAX_ACCOUNTS;
+        $limit = ACCOUNT_SWITCHER_MAX_ACCOUNTS;
         if ($limit) {
             $size = \count($this->getGroupUserIDs($user->userID)) ?: 1;
             $otherSize = \count($this->getGroupUserIDs($target->userID)) ?: 1;
@@ -178,8 +178,8 @@ final class AccountSwitcherHandler extends SingletonFactory
         $error = $this->getLinkError($user, $target);
         if ($error !== null) {
             throw new NamedUserException(HtmlString::fromSafeHtml(
-                WCF::getLanguage()->getDynamicVariable('forum.accountSwitcher.link.error.' . $error, [
-                    'limit' => FORUM_ACCOUNT_SWITCHER_MAX_ACCOUNTS,
+                WCF::getLanguage()->getDynamicVariable('wcf.accountSwitcher.link.error.' . $error, [
+                    'limit' => ACCOUNT_SWITCHER_MAX_ACCOUNTS,
                 ])
             ));
         }
@@ -189,16 +189,16 @@ final class AccountSwitcherHandler extends SingletonFactory
             $groupIDs = $this->getGroupIDs([$user->userID, $target->userID]);
             $groupID = $groupIDs[$user->userID] ?? $groupIDs[$target->userID] ?? null;
             if ($groupID === null) {
-                $sql = "INSERT INTO forum1_account_group (time) VALUES (?)";
+                $sql = "INSERT INTO wcf1_account_switcher_group (time) VALUES (?)";
                 $statement = WCF::getDB()->prepare($sql);
                 $statement->execute([TIME_NOW]);
-                $groupID = (int)WCF::getDB()->getInsertID('forum1_account_group', 'groupID');
+                $groupID = (int)WCF::getDB()->getInsertID('wcf1_account_switcher_group', 'groupID');
             }
 
             // Merge the other group into this one, keeping the original link times.
             foreach ($groupIDs as $otherGroupID) {
                 if ($otherGroupID !== $groupID) {
-                    $sql = "UPDATE  forum1_account_group_member
+                    $sql = "UPDATE  wcf1_account_switcher_member
                             SET     groupID = ?
                             WHERE   groupID = ?";
                     $statement = WCF::getDB()->prepare($sql);
@@ -206,7 +206,7 @@ final class AccountSwitcherHandler extends SingletonFactory
                 }
             }
 
-            $sql = "INSERT IGNORE INTO  forum1_account_group_member
+            $sql = "INSERT IGNORE INTO  wcf1_account_switcher_member
                                         (userID, groupID, time)
                     VALUES              (?, ?, ?)";
             $statement = WCF::getDB()->prepare($sql);
@@ -237,7 +237,7 @@ final class AccountSwitcherHandler extends SingletonFactory
         $groupUserIDs = $this->getGroupUserIDs($userID);
 
         WCF::getDB()->beginTransaction();
-        $sql = "DELETE FROM forum1_account_group_member
+        $sql = "DELETE FROM wcf1_account_switcher_member
                 WHERE       userID = ?";
         $statement = WCF::getDB()->prepare($sql);
         $statement->execute([$userID]);
@@ -257,7 +257,7 @@ final class AccountSwitcherHandler extends SingletonFactory
     /**
      * Returns the reason why the active user cannot switch to the given account
      * or `null` if they can. The reason is the suffix of the phrase
-     * `forum.accountSwitcher.switch.error.*`.
+     * `wcf.accountSwitcher.switch.error.*`.
      */
     public function getSwitchError(User $target): ?string
     {
@@ -421,7 +421,7 @@ final class AccountSwitcherHandler extends SingletonFactory
         $conditions = new PreparedStatementConditionBuilder();
         $conditions->add('userID IN (?)', [$userIDs]);
         $sql = "SELECT  userID, groupID
-                FROM    forum1_account_group_member
+                FROM    wcf1_account_switcher_member
                 {$conditions}
                 FOR UPDATE";
         $statement = WCF::getDB()->prepare($sql);
@@ -432,10 +432,10 @@ final class AccountSwitcherHandler extends SingletonFactory
 
     private function deleteEmptyGroups(): void
     {
-        $sql = "DELETE FROM forum1_account_group
+        $sql = "DELETE FROM wcf1_account_switcher_group
                 WHERE       groupID NOT IN (
                                 SELECT  groupID
-                                FROM    forum1_account_group_member
+                                FROM    wcf1_account_switcher_member
                             )";
         WCF::getDB()->prepare($sql)->execute();
     }

@@ -1,8 +1,8 @@
 <?php
 
-namespace forum\system\endpoint\controller\forum\accounts;
+namespace wcf\system\endpoint\controller\accountSwitcher;
 
-use forum\system\account\AccountSwitcherHandler;
+use wcf\system\user\LinkedAccountHandler;
 use Laminas\Diactoros\Response\JsonResponse;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -16,13 +16,13 @@ use wcf\system\WCF;
  *
  * @license GNU Lesser General Public License <http://opensource.org/licenses/lgpl-license.php>
  */
-#[GetRequest('/forum/account-switcher')]
+#[GetRequest('/account-switcher/accounts')]
 final class GetAccountSwitcher implements IController
 {
     #[\Override]
     public function __invoke(ServerRequestInterface $request, array $variables): ResponseInterface
     {
-        $handler = AccountSwitcherHandler::getInstance();
+        $handler = LinkedAccountHandler::getInstance();
         if (!$handler->isAvailable()) {
             throw new PermissionDeniedException();
         }
@@ -40,7 +40,7 @@ final class GetAccountSwitcher implements IController
         }
 
         return new JsonResponse([
-            'template' => WCF::getTPL()->render('forum', 'accountSwitcherMenu', [
+            'template' => WCF::getTPL()->render('wcf', 'accountSwitcherMenu', [
                 'accounts' => $accounts,
                 'unreadCounts' => $unreadCounts,
             ]),

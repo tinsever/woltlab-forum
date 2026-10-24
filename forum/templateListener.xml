@@ -13,12 +13,6 @@
 			<eventname>javascriptInit</eventname>
 			<templatecode><![CDATA[require(['Forum/Bootstrap'], ({ setup }) => setup());]]></templatecode>
 		</templatelistener>
-		<templatelistener name="forumAccountSwitcher">
-			<environment>user</environment>
-			<templatename>pageHeaderUser</templatename>
-			<eventname>menuItems</eventname>
-			<templatecode><![CDATA[{include file='__userPanelAccountSwitcher' application='forum'}]]></templatecode>
-		</templatelistener>
 		<templatelistener name="forumMessageSidebarPosts">
 			<environment>user</environment>
 			<templatename>messageSidebar</templatename>
@@ -44,4 +38,13 @@
 			<templatecode><![CDATA[{if $__forumMembersListView|isset}{include file='__membersListViewSwitch' application='forum'}{/if}]]></templatecode>
 		</templatelistener>
 	</import>
+
+	<!-- moved to the account switcher package (com.tinsever.wcf.accountSwitcher) in 1.0.0 Beta 3 -->
+	<delete>
+		<templatelistener name="forumAccountSwitcher">
+			<environment>user</environment>
+			<templatename>pageHeaderUser</templatename>
+			<eventname>menuItems</eventname>
+		</templatelistener>
+	</delete>
 </data>

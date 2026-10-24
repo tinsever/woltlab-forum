@@ -1,8 +1,8 @@
 <?php
 
-namespace forum\system\endpoint\controller\forum\accounts;
+namespace wcf\system\endpoint\controller\accountSwitcher;
 
-use forum\system\account\AccountSwitcherHandler;
+use wcf\system\user\LinkedAccountHandler;
 use Laminas\Diactoros\Response\JsonResponse;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -21,13 +21,13 @@ use wcf\util\HtmlString;
  *
  * @license GNU Lesser General Public License <http://opensource.org/licenses/lgpl-license.php>
  */
-#[PostRequest('/forum/account-switcher/{id:\d+}/switch')]
+#[PostRequest('/account-switcher/accounts/{id:\d+}/switch')]
 final class SwitchAccount implements IController
 {
     #[\Override]
     public function __invoke(ServerRequestInterface $request, array $variables): ResponseInterface
     {
-        $handler = AccountSwitcherHandler::getInstance();
+        $handler = LinkedAccountHandler::getInstance();
         if (!$handler->isAvailable()) {
             throw new PermissionDeniedException();
         }
@@ -38,7 +38,7 @@ final class SwitchAccount implements IController
         $error = $handler->getSwitchError($target);
         if ($error !== null) {
             throw new NamedUserException(HtmlString::fromSafeHtml(
-                WCF::getLanguage()->getDynamicVariable('forum.accountSwitcher.switch.error.' . $error)
+                WCF::getLanguage()->getDynamicVariable('wcf.accountSwitcher.switch.error.' . $error)
             ));
         }
 

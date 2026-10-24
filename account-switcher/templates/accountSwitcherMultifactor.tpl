@@ -1,12 +1,12 @@
 {capture assign='pageTitle'}{lang}wcf.user.security.multifactor.authentication{/lang}{/capture}
 {capture assign='contentTitle'}{lang}wcf.user.security.multifactor.authentication{/lang}{/capture}
-{capture assign='contentDescription'}{if $isLink}{lang}forum.accountSwitcher.multifactor.description.link{/lang}{else}{lang}forum.accountSwitcher.multifactor.description{/lang}{/if}{/capture}
+{capture assign='contentDescription'}{if $isLink}{lang}wcf.accountSwitcher.multifactor.description.link{/lang}{else}{lang}wcf.accountSwitcher.multifactor.description{/lang}{/if}{/capture}
 
 {include file='authFlowHeader'}
 
-<div class="forumAccountSwitcherMultifactor__account">
+<div class="accountSwitcherMultifactor__account">
 	{unsafe:$target->getAvatar()->getImageTag(48)}
-	<span class="forumAccountSwitcherMultifactor__username">{$target->username}</span>
+	<span class="accountSwitcherMultifactor__username">{$target->username}</span>
 </div>
 
 {unsafe:$form->getHtml()}
@@ -22,7 +22,7 @@
 				{if $setup->getId() != $method->getId()}
 					<li>
 						<a
-							href="{link controller='AccountSwitcherMultifactor' application='forum' id=$method->getId()}{/link}"
+							href="{link controller='AccountSwitcherMultifactor' id=$method->getId()}{/link}"
 							class="button authOtherOptionButtons__button"
 						>
 							{if $method->getObjectType()->icon}
@@ -38,7 +38,7 @@
 		</ul>
 	{/if}
 
-	<a href="{if $isLink}{link controller='AccountSwitcher' application='forum'}{/link}{elseif $returnUrl}{$returnUrl}{else}{link}{/link}{/if}" class="button authOtherOptionButtons__button forumAccountSwitcherMultifactor__cancel">
+	<a href="{if $isLink}{link controller='AccountSwitcher'}{/link}{elseif $returnUrl}{$returnUrl}{else}{link}{/link}{/if}" class="button authOtherOptionButtons__button accountSwitcherMultifactor__cancel">
 		<span>{lang}wcf.global.button.cancel{/lang}</span>
 	</a>
 </div>

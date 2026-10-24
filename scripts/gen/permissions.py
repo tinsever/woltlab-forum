@@ -97,14 +97,6 @@ pdf</defaultvalue>
 				<minvalue>1</minvalue>
 				<maxvalue>100</maxvalue>
 			</option>
-			<option name="user.profile.canUseAccountSwitcher">
-				<categoryname>user.profile</categoryname>
-				<optiontype>boolean</optiontype>
-				<defaultvalue>0</defaultvalue>
-				<userdefaultvalue>1</userdefaultvalue>
-				<usersonly>1</usersonly>
-				<options>module_forum_account_switcher</options>
-			</option>
 '''
 
 
@@ -167,7 +159,9 @@ categories = '''		<categories>
 with open(os.path.join(ROOT, 'userGroupOption.xml'), 'w') as f:
     f.write('<?xml version="1.0" encoding="UTF-8"?>\n<data xmlns="http://www.woltlab.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.woltlab.com http://www.woltlab.com/XSD/6.0/userGroupOption.xsd">\n\t<import>\n')
     f.write(categories)
-    f.write('\t\t<options>\n' + '\n'.join(options) + '\n' + EXTRA_USER + '\t\t</options>\n\t</import>\n</data>\n')
+    f.write('\t\t<options>\n' + '\n'.join(options) + '\n' + EXTRA_USER + '\t\t</options>\n\t</import>\n'
+            # moved to the account switcher package (com.tinsever.wcf.accountSwitcher) in 1.0.0 Beta 3
+            '\t<delete>\n\t\t<option name="user.profile.canUseAccountSwitcher" />\n\t</delete>\n</data>\n')
 
 acl_cats = sorted({f'user.{c}' for _, c, *_ in USER} | {f'mod.{c}' for _, c in MOD})
 with open(os.path.join(ROOT, 'aclOption.xml'), 'w') as f:

@@ -30,7 +30,7 @@ define(["require", "exports", "tslib", "WoltLabSuite/Core/Ajax/Backend", "WoltLa
             this.options = options;
             this.element = this.buildElement();
             this.content = this.element.querySelector(".userMenuContent");
-            this.search = this.element.querySelector(".forumAccountSwitcherMenu__search");
+            this.search = this.element.querySelector(".accountSwitcherMenu__search");
             this.searchInput = this.search.querySelector("input");
 
             this.focusTrap = (0, focus_trap_1.createFocusTrap)(this.element, {
@@ -47,7 +47,7 @@ define(["require", "exports", "tslib", "WoltLabSuite/Core/Ajax/Backend", "WoltLa
             this.searchInput.addEventListener("keydown", (event) => this.searchKeydown(event));
             this.content.addEventListener("keydown", (event) => this.listKeydown(event));
             this.content.addEventListener("click", (event) => {
-                const button = event.target.closest(".forumAccountSwitcher__switch");
+                const button = event.target.closest(".accountSwitcher__switch");
                 if (button && !button.disabled) {
                     void this.switchTo(button);
                 }
@@ -83,7 +83,7 @@ define(["require", "exports", "tslib", "WoltLabSuite/Core/Ajax/Backend", "WoltLa
 
         async load() {
             if (this.loading === undefined) {
-                this.loading = (0, Backend_1.prepareRequest)(`${window.WSC_RPC_API_URL}forum/account-switcher`)
+                this.loading = (0, Backend_1.prepareRequest)(`${window.WSC_RPC_API_URL}account-switcher/accounts`)
                     .get()
                     .disableLoadingIndicator()
                     .fetchAsJson()
@@ -107,13 +107,13 @@ define(["require", "exports", "tslib", "WoltLabSuite/Core/Ajax/Backend", "WoltLa
         }
 
         getItems() {
-            return Array.from(this.content.querySelectorAll(".forumAccountSwitcher__item"));
+            return Array.from(this.content.querySelectorAll(".accountSwitcher__item"));
         }
 
         getVisibleButtons() {
             return this.getItems()
                 .filter((item) => !item.hidden)
-                .map((item) => item.querySelector(".forumAccountSwitcher__switch"))
+                .map((item) => item.querySelector(".accountSwitcher__switch"))
                 .filter((button) => !button.disabled);
         }
 
@@ -128,7 +128,7 @@ define(["require", "exports", "tslib", "WoltLabSuite/Core/Ajax/Backend", "WoltLa
                 }
             });
 
-            const noResults = this.content.querySelector(".forumAccountSwitcher__noResults");
+            const noResults = this.content.querySelector(".accountSwitcher__noResults");
             if (noResults) {
                 noResults.hidden = visible > 0;
             }
@@ -172,29 +172,29 @@ define(["require", "exports", "tslib", "WoltLabSuite/Core/Ajax/Backend", "WoltLa
         }
 
         async switchTo(button) {
-            if (this.element.classList.contains("forumAccountSwitcherMenu--switching")) {
+            if (this.element.classList.contains("accountSwitcherMenu--switching")) {
                 return;
             }
 
-            this.element.classList.add("forumAccountSwitcherMenu--switching");
-            this.content.querySelectorAll(".forumAccountSwitcher__switch").forEach((otherButton) => {
+            this.element.classList.add("accountSwitcherMenu--switching");
+            this.content.querySelectorAll(".accountSwitcher__switch").forEach((otherButton) => {
                 otherButton.disabled = true;
             });
 
             const indicator = document.createElement("woltlab-core-loading-indicator");
             indicator.setAttribute("size", "24");
             indicator.setAttribute("hide-text", "");
-            button.querySelector(".forumAccountSwitcher__meta").replaceChildren(indicator);
+            button.querySelector(".accountSwitcher__meta").replaceChildren(indicator);
 
             try {
-                const response = await (0, Backend_1.prepareRequest)(`${window.WSC_RPC_API_URL}forum/account-switcher/${button.dataset.userId}/switch`)
+                const response = await (0, Backend_1.prepareRequest)(`${window.WSC_RPC_API_URL}account-switcher/accounts/${button.dataset.userId}/switch`)
                     .post({ returnUrl: window.location.href })
                     .fetchAsJson();
 
                 window.location.assign(response.redirectUrl ?? window.location.href.split("#")[0]);
             }
             catch (error) {
-                this.element.classList.remove("forumAccountSwitcherMenu--switching");
+                this.element.classList.remove("accountSwitcherMenu--switching");
                 this.lastLoad = 0;
                 void this.load();
 
@@ -205,30 +205,30 @@ define(["require", "exports", "tslib", "WoltLabSuite/Core/Ajax/Backend", "WoltLa
         buildElement() {
             const element = document.createElement("div");
             element.hidden = true;
-            element.classList.add("userMenu", "forumAccountSwitcherMenu");
+            element.classList.add("userMenu", "accountSwitcherMenu");
             element.dataset.origin = this.provider.getPanelButton().id;
             element.tabIndex = -1;
             element.innerHTML = `
         <div class="userMenuHeader">
-          <div class="userMenuTitle">${Language.get("forum.accountSwitcher.title")}</div>
+          <div class="userMenuTitle">${Language.get("wcf.accountSwitcher.title")}</div>
           <div class="userMenuButtons">
-            <a href="${this.options.linkLink}" class="userMenuButton jsTooltip" title="${Language.get("forum.accountSwitcher.link")}">
+            <a href="${this.options.linkLink}" class="userMenuButton jsTooltip" title="${Language.get("wcf.accountSwitcher.link")}">
               <fa-icon size="24" name="link"></fa-icon>
             </a>
           </div>
         </div>
-        <div class="forumAccountSwitcherMenu__search" hidden>
+        <div class="accountSwitcherMenu__search" hidden>
           <input type="search" class="long" autocomplete="off" spellcheck="false">
         </div>
         <div class="userMenuContent userMenuContentScrollable"></div>
         <div class="userMenuFooter">
-          <a href="${this.options.manageLink}" class="userMenuFooterLink">${Language.get("forum.accountSwitcher.manage")}</a>
+          <a href="${this.options.manageLink}" class="userMenuFooterLink">${Language.get("wcf.accountSwitcher.manage")}</a>
         </div>
       `;
 
             const input = element.querySelector("input");
-            input.placeholder = Language.get("forum.accountSwitcher.search.placeholder");
-            input.setAttribute("aria-label", Language.get("forum.accountSwitcher.search.placeholder"));
+            input.placeholder = Language.get("wcf.accountSwitcher.search.placeholder");
+            input.setAttribute("aria-label", Language.get("wcf.accountSwitcher.search.placeholder"));
 
             // Prevent clicks inside the menu from closing it.
             element.addEventListener("click", (event) => event.stopPropagation());
@@ -248,7 +248,7 @@ define(["require", "exports", "tslib", "WoltLabSuite/Core/Ajax/Backend", "WoltLa
         }
 
         getIdentifier() {
-            return "com.tinsever.forum.accountSwitcher";
+            return "com.tinsever.wcf.accountSwitcher";
         }
 
         getPanelButton() {
@@ -287,11 +287,11 @@ define(["require", "exports", "tslib", "WoltLabSuite/Core/Ajax/Backend", "WoltLa
     }
 
     function setup(options) {
-        const button = document.getElementById("forumAccountSwitcher");
-        if (button === null || button.dataset.forumInitialized) {
+        const button = document.getElementById("accountSwitcher");
+        if (button === null || button.dataset.accountSwitcherInitialized) {
             return;
         }
-        button.dataset.forumInitialized = "true";
+        button.dataset.accountSwitcherInitialized = "true";
 
         (0, Manager_1.registerProvider)(new AccountSwitcherProvider(button, options));
     }

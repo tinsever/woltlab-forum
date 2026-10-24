@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data xmlns="http://www.woltlab.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.woltlab.com http://www.woltlab.com/XSD/6.0/option.xsd">
+	<import>
+		<categories>
+			<category name="user.accountSwitcher">
+				<parent>user</parent>
+				<options>module_account_switcher</options>
+			</category>
+		</categories>
+		<options>
+			<option name="module_account_switcher">
+				<categoryname>module.user</categoryname>
+				<optiontype>boolean</optiontype>
+				<defaultvalue>1</defaultvalue>
+			</option>
+			<option name="account_switcher_enable_search">
+				<categoryname>user.accountSwitcher</categoryname>
+				<optiontype>boolean</optiontype>
+				<defaultvalue>1</defaultvalue>
+			</option>
+			<option name="account_switcher_max_accounts">
+				<categoryname>user.accountSwitcher</categoryname>
+				<optiontype>integer</optiontype>
+				<defaultvalue>20</defaultvalue>
+				<minvalue>0</minvalue>
+				<maxvalue>1000</maxvalue>
+			</option>
+		</options>
+	</import>
+</data>

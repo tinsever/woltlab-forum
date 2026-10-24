@@ -14,10 +14,6 @@
 			<category name="forum.general.article">
 				<parent>forum.general</parent>
 			</category>
-			<category name="forum.general.accountSwitcher">
-				<parent>forum.general</parent>
-				<options>module_forum_account_switcher</options>
-			</category>
 			<category name="forum.thread">
 				<parent>forum</parent>
 			</category>
@@ -35,23 +31,6 @@
 			</category>
 		</categories>
 		<options>
-			<option name="module_forum_account_switcher">
-				<categoryname>module.user</categoryname>
-				<optiontype>boolean</optiontype>
-				<defaultvalue>1</defaultvalue>
-			</option>
-			<option name="forum_account_switcher_enable_search">
-				<categoryname>forum.general.accountSwitcher</categoryname>
-				<optiontype>boolean</optiontype>
-				<defaultvalue>1</defaultvalue>
-			</option>
-			<option name="forum_account_switcher_max_accounts">
-				<categoryname>forum.general.accountSwitcher</categoryname>
-				<optiontype>integer</optiontype>
-				<defaultvalue>20</defaultvalue>
-				<minvalue>0</minvalue>
-				<maxvalue>1000</maxvalue>
-			</option>
 			<option name="forum_board_list_enable_stats">
 				<categoryname>forum.general.boardList</categoryname>
 				<optiontype>boolean</optiontype>
@@ -184,4 +163,12 @@ list:wcf.acp.option.forum_members_list_default_view.list</selectoptions>
 			</option>
 		</options>
 	</import>
+
+	<!-- moved to the account switcher package (com.tinsever.wcf.accountSwitcher) in 1.0.0 Beta 3 -->
+	<delete>
+		<option name="module_forum_account_switcher" />
+		<option name="forum_account_switcher_enable_search" />
+		<option name="forum_account_switcher_max_accounts" />
+		<optioncategory name="forum.general.accountSwitcher" />
+	</delete>
 </data>
