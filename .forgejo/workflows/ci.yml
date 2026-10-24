@@ -1,7 +1,8 @@
 # Codeberg CI (Forgejo Actions).
 # Every push and pull request: lint on the lowest and highest PHP version WSC 6.2
-# supports, check the generated files, build the package.
-# Tags like v1.0.0-beta.1 also publish a release with the package attached; the
+# supports, check the generated files, build the packages (forum, account
+# switcher, patched importer).
+# Tags like v1.0.0-beta.1 also publish a release with all three attached; the
 # tag must match <version> in forum/package.xml ("1.0.0 Beta 1").
 name: ci
 
@@ -37,10 +38,11 @@ jobs:
 
       - name: Check generated files
         run: |
-          command -v python3 >/dev/null || { apt-get update -qq && apt-get install -y -qq python3; }
+          command -v python3 >/dev/null && command -v patch >/dev/null \
+            || { apt-get update -qq && apt-get install -y -qq python3 patch; }
           python3 scripts/gen/language.py
           python3 scripts/gen/permissions.py
-          git diff --exit-code -- forum || {
+          git diff --exit-code -- forum account-switcher || {
             echo "Generated files are out of date: run scripts/gen/language.py and scripts/gen/permissions.py"
             exit 1
           }
@@ -49,6 +51,7 @@ jobs:
         id: package
         run: |
           ./scripts/build-package.sh
+          ./scripts/build-importer.sh
           version="$(sed -n 's|.*<version>\(.*\)</version>.*|\1|p' forum/package.xml | head -1)"
           echo "version=$version" >> "$GITHUB_OUTPUT"
           # "1.0.0 Beta 1" -> "v1.0.0-beta.1"
@@ -56,10 +59,14 @@ jobs:
 
       - uses: https://code.forgejo.org/actions/upload-artifact@v3
         with:
-          name: com.tinsever.forum
-          path: build/packages/com.tinsever.forum.tar
+          name: packages
+          path: |
+            build/packages/com.tinsever.forum.tar
+            build/packages/com.tinsever.wcf.accountSwitcher.tar
+            build/packages/com.woltlab.wcf.exporter.tar
 
       - name: Check tag matches package version
+        id: release
         if: startsWith(github.ref, 'refs/tags/')
         run: |
           if [ "${{ github.ref_name }}" != "${{ steps.package.outputs.tag }}" ]; then
@@ -67,7 +74,27 @@ jobs:
             exit 1
           fi
           mkdir -p dist/release
-          cp build/packages/com.tinsever.forum.tar dist/release/
+          cp build/packages/com.tinsever.forum.tar \
+            build/packages/com.tinsever.wcf.accountSwitcher.tar \
+            build/packages/com.woltlab.wcf.exporter.tar dist/release/
+          # release-notes/<tag>.md describes the changes of this release
+          {
+            echo 'notes<<RELEASE_NOTES_EOF'
+            if [ -f "release-notes/${{ github.ref_name }}.md" ]; then
+              cat "release-notes/${{ github.ref_name }}.md"
+              echo
+            fi
+            cat <<'EOF'
+          Install or update through the package server https://woltlab-pkgs.tin.codes/ (ACP: Configuration > Packages > Package Servers), or upload the archives under Configuration > Packages > Install Package.
+
+          - com.tinsever.forum.tar: the forum
+          - com.tinsever.wcf.accountSwitcher.tar: the account switcher (separate plugin since Forum 1.0.0 Beta 3)
+          - com.woltlab.wcf.exporter.tar: WoltLab's LGPL importer with compatibility fixes for this forum (upload only, not on the package server)
+
+          Requires WoltLab Suite Core 6.2.
+          EOF
+            echo 'RELEASE_NOTES_EOF'
+          } >> "$GITHUB_OUTPUT"
 
       - name: Publish release
         if: startsWith(github.ref, 'refs/tags/')
@@ -76,8 +103,6 @@ jobs:
           direction: upload
           release-dir: dist/release
           title: Forum ${{ steps.package.outputs.version }}
-          release-notes: |
-            Upload com.tinsever.forum.tar in the ACP under Configuration > Packages > Install Package.
-            Requires WoltLab Suite Core 6.2.
+          release-notes: ${{ steps.release.outputs.notes }}
           prerelease: ${{ contains(github.ref_name, 'alpha') || contains(github.ref_name, 'beta') || contains(github.ref_name, 'rc') }}
           token: ${{ secrets.RELEASE_TOKEN || github.token }}
