@@ -1,4 +1,4 @@
-# Codeberg CI (Forgejo Actions).
+# GitHub Actions CI.
 # Every push and pull request: lint on the lowest and highest PHP version WSC 6.2
 # supports, check the generated files, build the packages (forum, account
 # switcher, patched importer).
@@ -13,9 +13,12 @@ on:
   pull_request:
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
   lint:
-    runs-on: codeberg-tiny
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         php: ['8.1', '8.4']
@@ -31,15 +34,15 @@ jobs:
         run: ./scripts/lint.sh
 
   build:
-    runs-on: codeberg-tiny
+    runs-on: ubuntu-latest
     needs: lint
+    permissions:
+      contents: write
     steps:
-      - uses: https://code.forgejo.org/actions/checkout@v4
+      - uses: actions/checkout@v4
 
       - name: Check generated files
         run: |
-          command -v python3 >/dev/null && command -v patch >/dev/null \
-            || { apt-get update -qq && apt-get install -y -qq python3 patch; }
           python3 scripts/gen/language.py
           python3 scripts/gen/permissions.py
           git diff --exit-code -- forum account-switcher || {
@@ -57,16 +60,16 @@ jobs:
           # "1.0.0 Beta 1" -> "v1.0.0-beta.1"
           echo "tag=v$(echo "$version" | tr 'A-Z' 'a-z' | sed 's/ /-/; s/ /./g')" >> "$GITHUB_OUTPUT"
 
-      - uses: https://code.forgejo.org/actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           name: packages
+          if-no-files-found: error
           path: |
             build/packages/com.tinsever.forum.tar
             build/packages/com.tinsever.wcf.accountSwitcher.tar
             build/packages/com.woltlab.wcf.exporter.tar
 
       - name: Check tag matches package version
-        id: release
         if: startsWith(github.ref, 'refs/tags/')
         run: |
           if [ "${{ github.ref_name }}" != "${{ steps.package.outputs.tag }}" ]; then
@@ -79,7 +82,6 @@ jobs:
             build/packages/com.woltlab.wcf.exporter.tar dist/release/
           # release-notes/<tag>.md describes the changes of this release
           {
-            echo 'notes<<RELEASE_NOTES_EOF'
             if [ -f "release-notes/${{ github.ref_name }}.md" ]; then
               cat "release-notes/${{ github.ref_name }}.md"
               echo
@@ -93,16 +95,18 @@ jobs:
 
           Requires WoltLab Suite Core 6.2.
           EOF
-            echo 'RELEASE_NOTES_EOF'
-          } >> "$GITHUB_OUTPUT"
+          } > dist/release-notes.md
 
       - name: Publish release
         if: startsWith(github.ref, 'refs/tags/')
-        uses: https://code.forgejo.org/actions/forgejo-release@v2.13.4
-        with:
-          direction: upload
-          release-dir: dist/release
-          title: Forum ${{ steps.package.outputs.version }}
-          release-notes: ${{ steps.release.outputs.notes }}
-          prerelease: ${{ contains(github.ref_name, 'alpha') || contains(github.ref_name, 'beta') || contains(github.ref_name, 'rc') }}
-          token: ${{ secrets.RELEASE_TOKEN || github.token }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          RELEASE_TAG: ${{ github.ref_name }}
+          RELEASE_VERSION: ${{ steps.package.outputs.version }}
+        run: |
+          args=(--verify-tag --title "Forum $RELEASE_VERSION" --notes-file dist/release-notes.md)
+          case "$RELEASE_TAG" in
+            *alpha*|*beta*|*rc*) args+=(--prerelease) ;;
+          esac
+          gh release create "$RELEASE_TAG" dist/release/*.tar "${args[@]}"

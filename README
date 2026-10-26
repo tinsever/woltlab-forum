@@ -74,7 +74,7 @@ ACP):
 Or by upload:
 
 1. Download com.tinsever.forum.tar (and com.tinsever.wcf.accountSwitcher.tar)
-   from https://codeberg.org/tinsever/woltlab-forum/releases
+   from https://github.com/tinsever/woltlab-forum/releases
    or build them yourself (see "Building" below).
 2. In the ACP, go to Configuration > Packages > Install Package and
    upload the archive.
@@ -85,7 +85,7 @@ Updating works the same way: with the package server WoltLab Suite lists
 the update, otherwise upload the newer archive. All 1.0.0 Alpha and Beta
 versions can update to the latest release.
 
-The package server is generated from the Codeberg releases every ten
+The package server is generated from the GitHub releases every ten
 minutes. It does not serve the patched importer (com.woltlab.*), because
 WoltLab Suite ignores such packages from other servers; download it from
 the release instead.
@@ -99,7 +99,7 @@ Building
 This writes build/packages/com.tinsever.forum.tar and
 build/packages/com.tinsever.wcf.accountSwitcher.tar.
 
-Codeberg CI (.forgejo/workflows/ci.yml) lints the code on PHP 8.1 and
+GitHub Actions (.github/workflows/ci.yml) lints the code on PHP 8.1 and
 8.4, checks the generated files and builds the package on every push;
 the archives are attached to each run as an artifact.
 
@@ -107,9 +107,8 @@ To publish a release, bump <version> in forum/package.xml (and in
 account-switcher/package.xml if it changed) and push a tag matching the
 forum version: "1.0.0 Beta 2" becomes v1.0.0-beta.2, "1.0.0" becomes
 v1.0.0. CI then creates the release with the forum, the account switcher
-and the importer attached. If the
-built-in token cannot create releases, add a repository secret
-RELEASE_TOKEN with write:repository scope.
+and the importer attached, using the built-in GITHUB_TOKEN with
+contents: write permission. No release secret is needed.
 
 
 Importing an existing forum
