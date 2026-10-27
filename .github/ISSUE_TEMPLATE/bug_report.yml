@@ -1,0 +1,47 @@
+name: Bug report
+description: Something in Plenum or the account switcher does not work.
+labels: [bug]
+body:
+  - type: input
+    id: plenum
+    attributes:
+      label: Plenum version
+      description: Configuration > Packages in the ACP.
+      placeholder: 1.0.0 Beta 5
+    validations:
+      required: true
+  - type: input
+    id: wsc
+    attributes:
+      label: WoltLab Suite version
+      placeholder: 6.2.8
+    validations:
+      required: true
+  - type: input
+    id: php
+    attributes:
+      label: PHP version
+      placeholder: "8.3"
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Open a thread
+        2. Click …
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What did you expect, and what happened instead?
+    validations:
+      required: true
+  - type: textarea
+    id: log
+    attributes:
+      label: Error log
+      description: From ACP > Logs > Errors, if there is an entry. Remove anything private.
+      render: text

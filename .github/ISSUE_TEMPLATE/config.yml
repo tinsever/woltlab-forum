@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Questions and support
+    url: https://github.com/tinsever/woltlab-forum/discussions
+    about: Ask how to set up or use Plenum.
+  - name: Security issue
+    url: https://github.com/tinsever/woltlab-forum/security/advisories/new
+    about: Report vulnerabilities privately.

@@ -2,11 +2,12 @@
 
 Bug reports, translations and pull requests are welcome.
 
-## Reporting bugs
+## Questions and bugs
 
-Open an [issue](https://github.com/tinsever/woltlab-forum/issues) with the Plenum
-and WoltLab Suite versions, the steps to reproduce and what you expected. Report
-security issues privately, see [SECURITY.md](SECURITY.md).
+Ask questions in [Discussions](https://github.com/tinsever/woltlab-forum/discussions).
+Report bugs as an [issue](https://github.com/tinsever/woltlab-forum/issues/new/choose),
+the form asks for the versions and steps to reproduce. Report security issues
+privately, see [SECURITY.md](SECURITY.md).
 
 ## Pull requests
 
