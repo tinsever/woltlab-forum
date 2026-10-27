@@ -105,7 +105,7 @@ jobs:
           RELEASE_TAG: ${{ github.ref_name }}
           RELEASE_VERSION: ${{ steps.package.outputs.version }}
         run: |
-          args=(--verify-tag --title "Forum $RELEASE_VERSION" --notes-file dist/release-notes.md)
+          args=(--verify-tag --title "Plenum $RELEASE_VERSION" --notes-file dist/release-notes.md)
           case "$RELEASE_TAG" in
             *alpha*|*beta*|*rc*) args+=(--prerelease) ;;
           esac

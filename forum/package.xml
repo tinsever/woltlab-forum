@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <package name="com.tinsever.forum" xmlns="http://www.woltlab.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.woltlab.com http://www.woltlab.com/XSD/6.0/package.xsd">
 	<packageinformation>
-		<packagename>Forum</packagename>
-		<packagename language="de">Forum</packagename>
-		<packagedescription>Discussion forum with boards, threads and posts for WoltLab Suite.</packagedescription>
-		<packagedescription language="de">Diskussionsforum mit Foren, Themen und Beiträgen für WoltLab Suite.</packagedescription>
+		<packagename>Plenum</packagename>
+		<packagename language="de">Plenum</packagename>
+		<packagedescription>Plenum, a discussion forum with boards, threads and posts for WoltLab Suite.</packagedescription>
+		<packagedescription language="de">Plenum, ein Diskussionsforum mit Foren, Themen und Beiträgen für WoltLab Suite.</packagedescription>
 		<isapplication>1</isapplication>
 		<applicationdirectory>forum</applicationdirectory>
 		<version>1.0.0 Beta 4</version>

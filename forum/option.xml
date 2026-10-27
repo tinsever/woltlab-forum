@@ -14,6 +14,9 @@
 			<category name="forum.general.article">
 				<parent>forum.general</parent>
 			</category>
+			<category name="forum.general.footer">
+				<parent>forum.general</parent>
+			</category>
 			<category name="forum.thread">
 				<parent>forum</parent>
 			</category>
@@ -62,6 +65,11 @@
 				<categoryname>forum.general.article</categoryname>
 				<optiontype>forumBoard</optiontype>
 				<defaultvalue>0</defaultvalue>
+			</option>
+			<option name="forum_show_copyright">
+				<categoryname>forum.general.footer</categoryname>
+				<optiontype>boolean</optiontype>
+				<defaultvalue>1</defaultvalue>
 			</option>
 			<option name="forum_threads_per_page">
 				<categoryname>forum.thread.list</categoryname>

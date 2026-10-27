@@ -113,6 +113,9 @@
 			<item name="forum.board.threads"><![CDATA[Threads]]></item>
 			<item name="forum.board.unreadThreads"><![CDATA[Unread threads]]></item>
 		</category>
+		<category name="forum.page">
+			<item name="forum.page.copyright"><![CDATA[Forum Software: <strong>Plenum</strong>]]></item>
+		</category>
 		<category name="forum.post">
 			<item name="forum.post.add"><![CDATA[Reply]]></item>
 			<item name="forum.post.bestAnswer"><![CDATA[Best Answer]]></item>
@@ -502,6 +505,7 @@
 			<item name="wcf.acp.option.category.forum.general"><![CDATA[General]]></item>
 			<item name="wcf.acp.option.category.forum.general.article"><![CDATA[Article Discussions]]></item>
 			<item name="wcf.acp.option.category.forum.general.boardList"><![CDATA[Board List]]></item>
+			<item name="wcf.acp.option.category.forum.general.footer"><![CDATA[Footer]]></item>
 			<item name="wcf.acp.option.category.forum.post"><![CDATA[Posts]]></item>
 			<item name="wcf.acp.option.category.forum.post.general"><![CDATA[General]]></item>
 			<item name="wcf.acp.option.category.forum.thread"><![CDATA[Threads]]></item>
@@ -526,6 +530,8 @@
 			<item name="wcf.acp.option.forum_post_merge_double_posts"><![CDATA[Merge consecutive posts]]></item>
 			<item name="wcf.acp.option.forum_post_merge_double_posts.description"><![CDATA[A reply is appended to the previous post of the same author if it was written within this period, 0 disables the merging.]]></item>
 			<item name="wcf.acp.option.forum_posts_per_page"><![CDATA[Posts per page]]></item>
+			<item name="wcf.acp.option.forum_show_copyright"><![CDATA[Show the forum software in the footer]]></item>
+			<item name="wcf.acp.option.forum_show_copyright.description"><![CDATA[Adds “Forum Software: Plenum” next to the WoltLab Suite notice.]]></item>
 			<item name="wcf.acp.option.forum_thread_default_sort_field"><![CDATA[Default sort field]]></item>
 			<item name="wcf.acp.option.forum_thread_default_sort_order"><![CDATA[Default sort order]]></item>
 			<item name="wcf.acp.option.forum_thread_enable_similar_threads"><![CDATA[Show similar threads]]></item>

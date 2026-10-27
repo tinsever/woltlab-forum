@@ -113,6 +113,9 @@
 			<item name="forum.board.threads"><![CDATA[Themen]]></item>
 			<item name="forum.board.unreadThreads"><![CDATA[Ungelesene Themen]]></item>
 		</category>
+		<category name="forum.page">
+			<item name="forum.page.copyright"><![CDATA[Forum-Software: <strong>Plenum</strong>]]></item>
+		</category>
 		<category name="forum.post">
 			<item name="forum.post.add"><![CDATA[Antworten]]></item>
 			<item name="forum.post.bestAnswer"><![CDATA[Beste Antwort]]></item>
@@ -502,6 +505,7 @@
 			<item name="wcf.acp.option.category.forum.general"><![CDATA[Allgemein]]></item>
 			<item name="wcf.acp.option.category.forum.general.article"><![CDATA[Artikel-Diskussionen]]></item>
 			<item name="wcf.acp.option.category.forum.general.boardList"><![CDATA[Forenübersicht]]></item>
+			<item name="wcf.acp.option.category.forum.general.footer"><![CDATA[Fußzeile]]></item>
 			<item name="wcf.acp.option.category.forum.post"><![CDATA[Beiträge]]></item>
 			<item name="wcf.acp.option.category.forum.post.general"><![CDATA[Allgemein]]></item>
 			<item name="wcf.acp.option.category.forum.thread"><![CDATA[Themen]]></item>
@@ -526,6 +530,8 @@
 			<item name="wcf.acp.option.forum_post_merge_double_posts"><![CDATA[Aufeinanderfolgende Beiträge zusammenführen]]></item>
 			<item name="wcf.acp.option.forum_post_merge_double_posts.description"><![CDATA[Eine Antwort wird an den vorherigen Beitrag desselben Autors angehängt, wenn dieser innerhalb dieses Zeitraums verfasst wurde, 0 deaktiviert das Zusammenführen.]]></item>
 			<item name="wcf.acp.option.forum_posts_per_page"><![CDATA[Beiträge pro Seite]]></item>
+			<item name="wcf.acp.option.forum_show_copyright"><![CDATA[Forum-Software in der Fußzeile anzeigen]]></item>
+			<item name="wcf.acp.option.forum_show_copyright.description"><![CDATA[Zeigt „Forum-Software: Plenum“ neben dem Hinweis auf WoltLab Suite an.]]></item>
 			<item name="wcf.acp.option.forum_thread_default_sort_field"><![CDATA[Standard-Sortierfeld]]></item>
 			<item name="wcf.acp.option.forum_thread_default_sort_order"><![CDATA[Standard-Sortierreihenfolge]]></item>
 			<item name="wcf.acp.option.forum_thread_enable_similar_threads"><![CDATA[Ähnliche Themen anzeigen]]></item>

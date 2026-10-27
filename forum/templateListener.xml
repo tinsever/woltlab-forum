@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <data xmlns="http://www.woltlab.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.woltlab.com http://www.woltlab.com/XSD/6.0/templateListener.xsd">
 	<import>
+		<templatelistener name="forumCopyright">
+			<environment>user</environment>
+			<templatename>pageFooterCopyright</templatename>
+			<eventname>copyright</eventname>
+			<templatecode><![CDATA[{if FORUM_SHOW_COPYRIGHT}{include file='__forumCopyright' application='forum'}{/if}]]></templatecode>
+		</templatelistener>
 		<templatelistener name="forumRequirePaths">
 			<environment>user</environment>
 			<templatename>headIncludeJavaScript</templatename>

@@ -65,6 +65,15 @@ PHRASES = {
     'forum.user.members.view.cards': ('Card View', 'Kartenansicht'),
     'forum.user.members.view.list': ('List View', 'Listenansicht'),
 
+    # footer credit
+    'wcf.acp.option.category.forum.general.footer': ('Footer', 'Fußzeile'),
+    'wcf.acp.option.forum_show_copyright': ('Show the forum software in the footer', 'Forum-Software in der Fußzeile anzeigen'),
+    'wcf.acp.option.forum_show_copyright.description': (
+        'Adds “Forum Software: Plenum” next to the WoltLab Suite notice.',
+        'Zeigt „Forum-Software: Plenum“ neben dem Hinweis auf WoltLab Suite an.',
+    ),
+    'forum.page.copyright': ('Forum Software: <strong>Plenum</strong>', 'Forum-Software: <strong>Plenum</strong>'),
+
     # article discussions
     'wcf.acp.option.category.forum.general.article': ('Article Discussions', 'Artikel-Diskussionen'),
     'wcf.acp.option.forum_article_discussion_board_id': ('Discuss articles in the forum', 'Artikel im Forum diskutieren'),
